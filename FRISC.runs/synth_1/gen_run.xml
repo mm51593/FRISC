@@ -1,0 +1,273 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<GenRun Id="synth_1" LaunchPart="xc7k70tfbv676-1" LaunchTime="1611295930">
+  <File Type="REPORTS-TCL" Name="ALU_full_reports.tcl"/>
+  <File Type="PA-TCL" Name="ALU_full.tcl"/>
+  <File Type="RDS-DCP" Name="ALU_full.dcp"/>
+  <File Type="RDS-RDS" Name="ALU_full.vds"/>
+  <File Type="RDS-UTIL" Name="ALU_full_utilization_synth.rpt"/>
+  <File Type="RDS-UTIL-PB" Name="ALU_full_utilization_synth.pb"/>
+  <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1" RelGenDir="$PGENDIR/sources_1">
+    <Filter Type="Srcs"/>
+    <File Path="$PSRCDIR/sources_1/new/circuitNOT.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitNOT.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitNAND.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitNAND.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/2to1MUX.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/2to1MUX.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/fallingEdgeRegister.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/fallingEdgeRegister.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitAND3.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitAND3.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitOR4.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitOR4.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/MUX4to1.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/MUX4to1.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/MUX8to1.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/MUX8to1.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/risingEdgeRegister.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/risingEdgeRegister.vhd"/>
+        <Attr Name="ImportTime" Val="1611294228"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitAND4.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitAND4.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/Decoder3to8.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/Decoder3to8.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitOR3.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitOR3.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitXOR.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitXOR.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/operandBmux.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/operandBmux.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitAND.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitAND.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/halfAdder.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/halfAdder.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/circuitOR2.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/circuitOR2.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/fullAdder.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/fullAdder.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/arithmeticOperator.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/arithmeticOperator.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ANDunit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/ANDunit.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ORunit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/ORunit.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/XORunit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/XORunit.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/BarrelMUX.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/BarrelMUX.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/MUX16to1.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/MUX16to1.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/imports/new/circuitOR32.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sim_2/imports/new/circuitOR32.vhd"/>
+        <Attr Name="ImportTime" Val="1610900009"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/BarrelShifter.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/BarrelShifter.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/registry.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/registry.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/StatusFlags.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/StatusFlags.vhd"/>
+        <Attr Name="ImportTime" Val="1610946526"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ArithmeticLogicUnit.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/ArithmeticLogicUnit.vhd"/>
+        <Attr Name="ImportTime" Val="1611294440"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <File Path="$PSRCDIR/sources_1/new/ALU_full.vhd">
+      <FileInfo>
+        <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/sources_1/new/ALU_full.vhd"/>
+        <Attr Name="ImportTime" Val="1611295925"/>
+        <Attr Name="UsedIn" Val="synthesis"/>
+        <Attr Name="UsedIn" Val="simulation"/>
+      </FileInfo>
+    </File>
+    <Config>
+      <Option Name="DesignMode" Val="RTL"/>
+      <Option Name="TopModule" Val="ALU_full"/>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="constrs_in" Type="Constrs" RelSrcDir="$PSRCDIR/constrs_1">
+    <Filter Type="Constrs"/>
+    <Config>
+      <Option Name="ConstrsType" Val="XDC"/>
+    </Config>
+  </FileSet>
+  <FileSet Name="utils" Type="Utils" RelSrcDir="$PSRCDIR/utils_1">
+    <Filter Type="Utils"/>
+    <Config>
+      <Option Name="TopAutoSet" Val="TRUE"/>
+    </Config>
+  </FileSet>
+  <Strategy Version="1" Minor="2">
+    <StratHandle Name="Vivado Synthesis Defaults" Flow="Vivado Synthesis 2020"/>
+    <Step Id="synth_design"/>
+  </Strategy>
+</GenRun>

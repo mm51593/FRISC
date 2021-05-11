@@ -1,0 +1,48 @@
+Vivado Simulator 2020.2
+Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
+Running: /home/extra/Xilinx/Vivado/2020.2/bin/unwrapped/lnx64.o/xelab -wto 3eb6a258bf1047ffbb5ae7f02759670d --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot ALU_full_tb_behav xil_defaultlib.ALU_full_tb -log elaborate.log 
+Using 8 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling package std.standard
+Compiling package std.textio
+Compiling package ieee.std_logic_1164
+Compiling package ieee.numeric_std
+Compiling package synopsys.attributes
+Compiling package ieee.std_logic_misc
+Compiling package ieee.math_real
+Compiling architecture behavioral of entity xil_defaultlib.fallingEdgeRegister [fallingedgeregister_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitNOT [circuitnot_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitAND3 [circuitand3_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitOR4 [circuitor4_default]
+Compiling architecture behavioral of entity xil_defaultlib.MUX4to1 [mux4to1_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitNAND2 [circuitnand2_default]
+Compiling architecture behavioral of entity xil_defaultlib.MUX2to1 [mux2to1_default]
+Compiling architecture behavioral of entity xil_defaultlib.MUX8to1 [mux8to1_default]
+Compiling architecture behavioral of entity xil_defaultlib.risingEdgeRegister [risingedgeregister_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitAND4 [circuitand4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Decoder3to8 [decoder3to8_default]
+Compiling architecture behavioral of entity xil_defaultlib.registry [registry_default]
+Compiling architecture behavioral of entity xil_defaultlib.MUX16to1 [mux16to1_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitOR3 [circuitor3_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitXOR2 [circuitxor2_default]
+Compiling architecture behavioral of entity xil_defaultlib.operandBinverter [operandbinverter_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitAND2 [circuitand2_default]
+Compiling architecture behavioral of entity xil_defaultlib.halfAdder [halfadder_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitOR2 [circuitor2_default]
+Compiling architecture behavioral of entity xil_defaultlib.fullAdder [fulladder_default]
+Compiling architecture behavioral of entity xil_defaultlib.adder [adder_default]
+Compiling architecture behavioral of entity xil_defaultlib.ANDunit [andunit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ORunit [orunit_default]
+Compiling architecture behavioral of entity xil_defaultlib.XORunit [xorunit_default]
+Compiling architecture behavioral of entity xil_defaultlib.BarrelMUX [barrelmux_default]
+Compiling architecture behavioral of entity xil_defaultlib.circuitOR32 [circuitor32_default]
+Compiling architecture behavioral of entity xil_defaultlib.BarrelShifter [barrelshifter_default]
+Compiling architecture behavioral of entity xil_defaultlib.NZcalculator [nzcalculator_default]
+Compiling architecture behavioral of entity xil_defaultlib.ArithmeticLogicUnit [arithmeticlogicunit_default]
+Compiling architecture behavioral of entity xil_defaultlib.ALU_full [alu_full_default]
+Compiling architecture bench of entity xil_defaultlib.alu_full_tb
+Built simulation snapshot ALU_full_tb_behav

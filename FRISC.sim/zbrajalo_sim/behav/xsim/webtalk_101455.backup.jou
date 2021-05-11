@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri Jan 22 06:50:01 2021
+# Process ID: 101455
+# Current directory: /home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.sim/zbrajalo_sim/behav/xsim
+# Command line: wbtcv -mode batch -source /home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.sim/zbrajalo_sim/behav/xsim/xsim.dir/ALU_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.sim/zbrajalo_sim/behav/xsim/webtalk.log
+# Journal file: /home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.sim/zbrajalo_sim/behav/xsim/webtalk.jou
+#-----------------------------------------------------------
+source /home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.sim/zbrajalo_sim/behav/xsim/xsim.dir/ALU_tb_behav/webtalk/xsim_webtalk.tcl -notrace

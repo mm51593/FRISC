@@ -46,7 +46,7 @@ entity registry is
            statusWriteEnable : in STD_LOGIC;
            outA : out STD_LOGIC_VECTOR (31 downto 0);
            outB : out STD_LOGIC_VECTOR (31 downto 0);
-           statusFlags : out STD_LOGIC_VECTOR (31 downto 0);
+           statusFlags : out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
            regBdata : out STD_LOGIC_VECTOR (31 downto 0));
 end registry;
 
@@ -92,7 +92,7 @@ begin
     regBData <= outBReg;
     
     getRawDataPick: for i in 0 to N - 1 generate
-        c_C: entity work.MUX4to1 port map(input(0) => outBReg(i), input(1) => rawData(i), input(3) => increment(i), input(4) => '0', selection => rawSelection, output => BRawDataPicked(i));
+        c_C: entity work.MUX4to1 port map(input(0) => outBReg(i), input(1) => rawData(i), input(2) => increment(i), input(3) => '0', selection => rawSelection, output => BRawDataPicked(i));
     end generate;
     
     getOpA: for i in 0 to N - 1 generate

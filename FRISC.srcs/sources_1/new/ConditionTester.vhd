@@ -78,5 +78,5 @@ begin
     
     MUX: entity work.MUX16to1 port map(input(0) => '1', input(1) => C, input(2) => not_C, input(3) => V, input(4) => not_V, input(5) => N,
             input(6) => not_N, input(7) => Z, input(8) => not_Z, input(9) => ULE, input(10) => UGT, input(11) => SLE, input(12) => SGT,
-            input(13) => N_xor_V, input(14) => not_N_xor_V, selector => selection, output => output);
+            input(13) => N_xor_V, input(14) => not_N_xor_V, input(15) => '0', selector => selection, output => output);
 end Behavioral;

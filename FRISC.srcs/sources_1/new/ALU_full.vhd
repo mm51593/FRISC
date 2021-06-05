@@ -36,6 +36,7 @@ entity ALU_full is
            RegB : in STD_LOGIC_VECTOR (2 downto 0);
            RegWrite : in STD_LOGIC_VECTOR (2 downto 0);
            RegistryIn : in STD_LOGIC_VECTOR (31 downto 0);
+           flagsIN: in STD_LOGIC_VECTOR (31 downto 0);
            Const : in STD_LOGIC_VECTOR (31 downto 0);
            ConstSelection : in STD_LOGIC_VECTOR (1 downto 0);
            instruction : in STD_LOGIC_VECTOR (3 downto 0);
@@ -45,15 +46,15 @@ entity ALU_full is
            statusWriteEnable : in STD_LOGIC;
            clk : in STD_LOGIC;
            result: out STD_LOGIC_VECTOR (31 downto 0);
-           flagsOUT: out STD_LOGIC_VECTOR (31 downto 0);
-           RegBOut : out STD_LOGIC_VECTOR (31 downto 0));
+           flagsOUT: out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
+           RegBOut : out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
+           statusreg: out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000");
 
 end ALU_full;
 
 architecture Behavioral of ALU_full is
     signal operandA: STD_LOGIC_VECTOR (31 downto 0);
     signal operandB: STD_LOGIC_VECTOR (31 downto 0);
-    signal flagsIN: STD_LOGIC_VECTOR (31 downto 0);
     signal flagsTemp: STD_LOGIC_VECTOR (31 downto 0);
     signal carry: STD_LOGIC;
     signal ALUresult: STD_LOGIC_VECTOR (31 downto 0);
@@ -65,8 +66,8 @@ begin
                         outB => operandB, flagsIN => flagsIN, statusFlags => flagsTemp, regBData => RegBOut);
     
     carry <= flagsTemp(1);
-    flagsOUT <= flagsTemp;
-    flagsIN(31 downto 4) <= "0000000000000000000000000000";
+    statusreg <= flagsTemp;
+    flagsOUT(31 downto 4) <= flagsTemp (31 downto 4);
     ArithmeticLogicUnit: entity work.ArithmeticLogicUnit port map (operandA => operandA, operandB => operandB,
-                       carryIN => carry, operationSelect => instruction, clk => clk, result => result, flags => flagsIN(3 downto 0));
+                       carryIN => carry, operationSelect => instruction, clk => clk, result => result, flags => flagsOUT(3 downto 0));
 end Behavioral;

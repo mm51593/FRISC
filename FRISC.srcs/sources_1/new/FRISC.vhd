@@ -33,8 +33,14 @@ use IEEE.STD_LOGIC_1164.ALL;
 
 entity FRISC is
     Port ( clk : in STD_LOGIC;
+           waitsig: in STD_LOGIC;
+           interrupt: in STD_LOGIC_VECTOR (1 downto 0);
            data : inout STD_LOGIC_VECTOR (31 downto 0);
-           address: out STD_LOGIC_VECTOR (31 downto 0));
+           address: out STD_LOGIC_VECTOR (31 downto 0);
+           sizeout : out STD_LOGIC_VECTOR (1 downto 0);
+           read: out STD_LOGIC;
+           write: out STD_LOGIC;
+           PCtest: out STD_LOGIC_VECTOR (31 downto 0));
 end FRISC;
 
 architecture Behavioral of FRISC is
@@ -47,17 +53,27 @@ architecture Behavioral of FRISC is
     signal regwriteenable: STD_LOGIC;
     signal regtostatusenable: STD_LOGIC;
     signal statuswriteenable: STD_LOGIC;
-    signal statusregout: STD_LOGIC_VECTOR (31 downto 0);
+    signal statusregin: STD_LOGIC_VECTOR (31 downto 0);
+    signal statusregout: STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
+    signal aluflagsout: STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     signal regBout : STD_LOGIC_VECTOR (31 downto 0);
     signal ALUresult : STD_LOGIC_VECTOR (31 downto 0);
     signal condition: STD_LOGIC_VECTOR (3 downto 0);
+    signal size: STD_LOGIC_VECTOR (1 downto 0);
     
     signal dataRegMUXOut : STD_LOGIC_VECTOR (31 downto 0);
     signal dataRegOut: STD_LOGIC_VECTOR (31 downto 0);
     
+    signal instruction: STD_LOGIC_VECTOR (31 downto 0);
+    signal reading: STD_LOGIC;
+    signal writing: STD_LOGIC;
+    
     signal registryMUXOut: STD_LOGIC_VECTOR (31 downto 0);
     
+    signal const: STD_LOGIC_VECTOR (19 downto 0);
     signal extenderOut: STD_LOGIC_VECTOR (31 downto 0);
+    
+    signal GIEnegate: STD_LOGIC; 
     
     signal PCIncrementMUXCondition: STD_LOGIC;
     signal PCIncrementPickFinal: STD_LOGIC;
@@ -70,42 +86,56 @@ architecture Behavioral of FRISC is
     signal PCDecremented: STD_LOGIC_VECTOR (31 downto 0);
     
     signal AddressRegisterMUXOut: STD_LOGIC_VECTOR (31 downto 0);
+    signal AddressShufflerOut: STD_LOGIC_VECTOR (31 downto 0);
     signal AddressWrite: STD_LOGIC;
     
     signal reginpick: STD_LOGIC_VECTOR (1 downto 0);
     signal drpick: STD_LOGIC_VECTOR (1 downto 0);
     signal pcinc: STD_LOGIC;
-    signal pcpick: STD_LOGIC_VECTOR (2 downto 0);
+    signal pcpick: STD_LOGIC_VECTOR (2 downto 0) := "101";
     signal pcdec: STD_LOGIC;
     signal arpick: STD_LOGIC_VECTOR (1 downto 0);
+    signal gieselect: STD_LOGIC;
     
     constant N : integer := 32;
-    constant increment : STD_LOGIC_VECTOR := "00000000000000000000000000000100";
-    constant incrementComplement: STD_LOGIC_VECTOR := "11111111111111111111111111111011";
-    constant MIaddress:  STD_LOGIC_VECTOR := "00000000000000000000000000001000";
-    constant NMIaddress: STD_LOGIC_VECTOR := "00000000000000000000000000001100";
+    constant increment : STD_LOGIC_VECTOR := "00100000000000000000000000000000";
+    constant incrementComplement: STD_LOGIC_VECTOR := "11011111111111111111111111111111";
+    constant MIaddress:  STD_LOGIC_VECTOR := "00100000000000000000000000000000";
+    constant NMIaddress: STD_LOGIC_VECTOR := "00110000000000000000000000000000";
 begin
     ALU: entity work.ALU_FULL port map(RegA => regAPick, RegB => regBPick, RegistryIN => registryMUXOut, RegWrite => regwritepick, Const => extenderOut,
             statusregwrite => regtostatusenable, statusregread => operandApick, 
             constSelection => operandBpick, instruction => opsel, writeEnable => regwriteenable, statusWriteEnable => statuswriteenable,
-            clk => clk, flagsOUT => statusregout, RegBOut => regBout, result => ALUresult);
-            
+            clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout);
+
+
+    negGIE: entity work.circuitNOT port map(I => aluflagsout(4), O => GIEnegate);
+    GIEMUX: entity work.MUX2to1 port map(I1 => aluflagsout(4), I2 => GIEnegate, selection => gieselect, output => statusregin(4));
+    
+    SR_in: for i in 0 to N - 1 generate
+        SR_notGIE: if i /= 4 generate
+            statusregin(i) <= aluflagsout(i);
+        end generate;
+    end generate;
+     
     dataRegMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX4to1 port map(input(0) => PCDecremented(i), input(1) => data(i), input(2) => regBout(i), input(3) => '0', selection => drpick, output => dataRegMUXOut(i));
     end generate;
     
-    dataRegister: entity work.risingEdgeRegister port map(d => dataRegMUXOut, enable => '1', clk => clk, q => dataRegOut);
+    dataRegister: entity work.fallingEdgeRegister port map(d => dataRegMUXOut, enable => '1', clk => waitsig, q => dataRegOut);
+    
+    instructionRegister: entity work.fallingEdgeRegister port map(d => data, clk => clk, enable => reading, q => instruction);
     
     registryInMUX: for i in 0 to N - 1 generate
-        M_i: entity work.MUX4to1 port map(input(0) => ALUresult(i), input(1) => statusregout(i), input(3) => dataRegOut(i), input(3) => '0',
+        M_i: entity work.MUX4to1 port map(input(0) => ALUresult(i), input(1) => aluflagsout(i), input(2) => dataRegOut(i), input(3) => '0',
                     selection => reginpick, output => registryMUXOut(i));
     end generate;
     
-    extender: entity work.Extender port map(input => data(19 downto 0), output => extenderOut);
+    extender: entity work.Extender port map(input => const, output => extenderOut);
     
     PCMUXCondition: entity work.ConditionTester port map(flags => statusregout(3 downto 0), selection => condition, output => PCIncrementMUXCondition);
     PCMUXAND: entity work.circuitAND2 port map(A => pcinc, B => PCIncrementMUXCondition, R => PCIncrementPickFinal);
-    PCIncrementMUX: for i in 0 to 31 generate
+    PCIncrementMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX2to1 port map(I1 => increment(i), I2 => extenderOut(i), selection => PCIncrementPickFinal, output => PCIncrementMUXOut(i));
     end generate;
     
@@ -116,7 +146,7 @@ begin
                 input(4) => NMIaddress(i), input(5) => PCOut(i), input(7 downto 6) => "00", selection => pcpick, output => PCInMUX(i));
     end generate;
                 
-    PC: entity work.fallingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
+    PC: entity work.risingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
     
     PCDecrementMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX2to1 port map(I1 => '1', I2 => incrementComplement(i), selection => pcdec, output => PCDecrementMUXOut(i));
@@ -129,6 +159,21 @@ begin
                 selection => arpick, output => AddressRegisterMUXOut(i));
     end generate;
     
-    addressRegister: entity work.risingEdgeRegister port map(d => AddressRegisterMUXOut, clk => AddressWrite, enable => '1', q => address);
+    addressShuffler: entity work.Shuffler port map(address => AddressRegisterMUXOut, size => size, output => AddressShufflerOut);
     
+    address <= AddressRegisterMUXOut;
+    --addressRegister: entity work.risingEdgeRegister port map(d => AddressShufflerOut, clk => AddressWrite, enable => '1', q => address);
+    
+    CU: entity work.ControlUnit port map(instruction => instruction, waitsig => waitsig, clk => clk, previous_condition => PCIncrementMUXCondition,
+            regin => reginpick, opbpick => operandBpick, opcode => opsel, pcinc => pcinc, pcpick => pcpick, drpick => drpick, arpick => arpick,
+            pcdec => pcdec, gieselect => gieselect, const => const, size => size, regA => regApick, regB => regBpick, regWrite => regwritepick,
+            statusregwrite => regtostatusenable, statusregread => operandApick, writeenable => regwriteenable, statuswriteenable => statuswriteenable, 
+            conditionout => condition, interrupt => interrupt, GIE => statusregout(4), read => reading, write => writing, pcpicktest => PCtest(2 downto 0));
+    
+    PCtest(31 downto 3) <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+    --PCtest(2 downto 0) <= pcpick;
+    read <= reading;
+    write <= writing;
+    data <= dataregout when writing = '1' else (others => 'Z');
+    sizeout <= size;
 end Behavioral;

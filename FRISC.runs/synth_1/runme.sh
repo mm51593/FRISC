@@ -20,7 +20,7 @@ else
 fi
 export LD_LIBRARY_PATH
 
-HD_PWD='/home/marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.runs/synth_1'
+HD_PWD='/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1'
 cd "$HD_PWD"
 
 HD_LOG=runme.log
@@ -36,4 +36,4 @@ EAStep()
      fi
 }
 
-EAStep vivado -log ALU_full.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source ALU_full.tcl
+EAStep vivado -log Complete.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Complete.tcl

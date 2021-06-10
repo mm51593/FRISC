@@ -41,7 +41,6 @@ entity FRISC is
            read: out STD_LOGIC;
            write: out STD_LOGIC;
            PCtest: out STD_LOGIC_VECTOR (31 downto 0);
-           instructionwriteout: out STD_LOGIC;
            A_out : out STD_LOGIC_VECTOR (31 downto 0);
            B_out : out STD_LOGIC_VECTOR (31 downto 0));
 end FRISC;
@@ -96,7 +95,7 @@ architecture Behavioral of FRISC is
     signal reginpick: STD_LOGIC_VECTOR (1 downto 0);
     signal drpick: STD_LOGIC_VECTOR (1 downto 0);
     signal pcinc: STD_LOGIC;
-    signal pcpick: STD_LOGIC_VECTOR (2 downto 0) := "101";
+    signal pcpick: STD_LOGIC_VECTOR (2 downto 0);
     signal pcdec: STD_LOGIC;
     signal arpick: STD_LOGIC_VECTOR (1 downto 0);
     signal gieselect: STD_LOGIC;
@@ -111,9 +110,9 @@ begin
             statusregwrite => regtostatusenable, statusregread => operandApick, 
             constSelection => operandBpick, instruction => opsel, writeEnable => regwriteenable, statusWriteEnable => statuswriteenable,
             clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout,
-            A_out => A_out);
+            A_out => A_out, B_out => B_out);
 
-    B_out <= ALUresult;
+    --B_out <= ALUresult;
 
     negGIE: entity work.circuitNOT port map(I => aluflagsout(4), O => GIEnegate);
     GIEMUX: entity work.MUX2to1 port map(I1 => aluflagsout(4), I2 => GIEnegate, selection => gieselect, output => statusregin(4));
@@ -149,11 +148,11 @@ begin
     PCIncrement: entity work.adder port map(operand1 => PCIncrementMUXOut, operand2 => PCOut, carryIN => '0', result => PCIncremented);
     
     PCMUX: for i in 0 to N - 1 generate
-        M_i: entity work.MUX8to1 port map(input(0) => PCIncremented(i), input(1) => dataRegOut(i), input(2) => extenderOut(i), input(3) => regBout(i),
-                input(4) => NMIaddress(i), input(5) => PCOut(i), input(7 downto 6) => "00", selection => pcpick, output => PCInMUX(i));
+        M_i: entity work.MUX8to1 port map(input(0) => PCOut(i), input(1) => PCIncremented(i), input(2) => extenderOut(i), input(3) => regBout(i),
+                input(4) => NMIaddress(i), input(5) => dataRegOut(i), input(7 downto 6) => "00", selection => pcpick, output => PCInMUX(i));
     end generate;
                 
-    PC: entity work.risingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
+    PC: entity work.fallingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
     
     PCDecrementMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX2to1 port map(I1 => '1', I2 => incrementComplement(i), selection => pcdec, output => PCDecrementMUXOut(i));
@@ -176,11 +175,8 @@ begin
             pcdec => pcdec, gieselect => gieselect, const => const, size => size, regA => regApick, regB => regBpick, regWrite => regwritepick,
             statusregwrite => regtostatusenable, statusregread => operandApick, writeenable => regwriteenable, statuswriteenable => statuswriteenable, 
             conditionout => condition, interrupt => interrupt, GIE => statusregout(4), readfinal => reading, writefinal => writing, instructionwrite => instructionwrite,
-            counttest => instructionwriteout, instructiontest => PCtest);
+            instructiontest => PCtest);
     
-    --PCtest(31 downto 3) <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
-    --PCtest(2 downto 0) <= pcpick;
-    --PCtest <= PCOut;
     read <= reading;
     write <= writing;
     data <= dataregout when writing = '1' else (others => 'Z');

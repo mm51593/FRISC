@@ -45,8 +45,6 @@ entity Complete is
 end Complete;
 
 architecture Behavioral of Complete is
-    type wrapper is array (1 downto 0) of STD_LOGIC_VECTOR (31 downto 0);
-    signal temp: wrapper;
     signal waitsig: STD_LOGIC;
     signal interrupt: STD_LOGIC_VECTOR (1 downto 0);
     signal address: STD_LOGIC_VECTOR (31 downto 0);

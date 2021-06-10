@@ -1,0 +1,4 @@
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'FRISC'
+INFO: [VRFC 10-163] Analyzing VHDL file "/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd" into library xil_defaultlib
+INFO: [VRFC 10-3107] analyzing entity 'Complete'

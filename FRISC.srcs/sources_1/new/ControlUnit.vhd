@@ -43,7 +43,7 @@ entity ControlUnit is
            opbpick: out STD_LOGIC_VECTOR(1 downto 0);
            opcode: out STD_LOGIC_VECTOR(3 downto 0);
            pcinc: out STD_LOGIC := '0';
-           pcpick: out STD_LOGIC_VECTOR(2 downto 0) := "101";
+           pcpick: out STD_LOGIC_VECTOR(2 downto 0);
            drpick: out STD_LOGIC_VECTOR(1 downto 0);
            arpick: out STD_LOGIC_VECTOR(1 downto 0);
            pcdec: out STD_LOGIC := '0';
@@ -51,7 +51,6 @@ entity ControlUnit is
            const: out STD_LOGIC_VECTOR(19 downto 0);
            size: out STD_LOGIC_VECTOR(1 downto 0);
            instructiontest: out STD_LOGIC_VECTOR(31 downto 0);
-           counttest: out STD_LOGIC;
            
            regA: out STD_LOGIC_VECTOR(2 downto 0);
            regB: out STD_LOGIC_VECTOR(2 downto 0);
@@ -63,8 +62,7 @@ entity ControlUnit is
            conditionout: out STD_LOGIC_VECTOR(3 downto 0) := "0000";
            instructionwrite: out STD_LOGIC := '0';
            readfinal: out STD_LOGIC := '0';
-           writefinal: out STD_LOGIC := '0'
-           );
+           writefinal: out STD_LOGIC := '0');
 end ControlUnit;
 
 architecture Behavioral of ControlUnit is
@@ -73,7 +71,7 @@ architecture Behavioral of ControlUnit is
     signal opbpickreg: STD_LOGIC_VECTOR(1 downto 0);
     signal opcodereg: STD_LOGIC_VECTOR(3 downto 0);
     signal pcincreg: STD_LOGIC;
-    signal pcpickreg: STD_LOGIC_VECTOR(2 downto 0) := "101";
+    signal pcpickreg: STD_LOGIC_VECTOR(2 downto 0);
     signal drpickreg: STD_LOGIC_VECTOR(1 downto 0);
     signal arpickreg: STD_LOGIC_VECTOR(1 downto 0);
     signal pcdecreg: STD_LOGIC := '0';
@@ -110,15 +108,15 @@ architecture Behavioral of ControlUnit is
 begin
     constReg: entity work.risingEdgeRegister port map(d(19 downto 0) => instruction(19 downto 0), d(22 downto 20) => regAreg,
             d(25 downto 23) => regBreg, d(28 downto 26) => regRreg, d(31 downto 29) => "000", clk => clk, enable => '1',
-            q(19 downto 0) => const, q(22 downto 20) => constregtemp(22 downto 20), q(25 downto 23) => constregtemp(25 downto 23), 
-            q(28 downto 26) => constregtemp(28 downto 26), q(31 downto 29) => constRegTemp(31 downto 29));
+            q(19 downto 0) => const, q(22 downto 20) => regA, q(25 downto 23) => regB, 
+            q(28 downto 26) => regWrite, q(31 downto 29) => constRegTemp(31 downto 29));
     
     controlSignalsReg: entity work.risingEdgeRegister port map(
             d(1 downto 0) => reginreg, d(3 downto 2) => opbpickreg, d(7 downto 4) => opcodereg, d(8) => pcincreg, d(11 downto 9) => pcpickreg,
             d(13 downto 12) => drpickreg, d(15 downto 14) => arpickreg, d(16) => pcdecreg, d(17) => statusregwritereg,
             d(18) => statusregreadreg, d(19) => writeenablereg, d(20) => statuswriteenablereg, d(24 downto 21) => conditionreg, 
             d(25) => gieselectreg, d(26) => readreg, d(27) => writereg, d(31 downto 28) => "0000", clk => clk, enable => '1',
-            q(1 downto 0) => regin, q(3 downto 2) => constregtemp(3 downto 2), q(7 downto 4) => opcode, q(8) => pcinc, q(11 downto 9) => pcpick,
+            q(1 downto 0) => regin, q(3 downto 2) => opbpick, q(7 downto 4) => opcode, q(8) => pcinc, q(11 downto 9) => pcpick,
             q(13 downto 12) => drpick, q(15 downto 14) => arpick, q(16) => pcdec, q(17) => statusregwrite, q(18) => statusregread,
             q(19) => writeenable, q(20) => statuswriteenable, q(24 downto 21) => conditionout, q(25) => gieselect, q(26) => readregout, q(27) => writeregout,
             q(31 downto 28) => controlSignalRegTemp(31 downto 28));
@@ -126,13 +124,7 @@ begin
     readfinal <= read when read = '1' else readregout;
     writefinal <= write when write = '1' else writeregout;
     
-    regwrite <= regRreg;
-    regA <= regAreg;
-    regB <= regBreg;
-    opbpick <= opbpickreg;
-    
     instructiontest <= instruction;
-    counttest <= halt;       
     process(clk, waitsig)
     begin
         if (falling_edge(clk) and waitsig = '0' and halt = '0') then
@@ -169,7 +161,7 @@ begin
             opbpickreg <= "00";
             opcodereg <= "0000";
             pcincreg <= '0';
-            pcpickreg <= "000";
+            pcpickreg <= "001";
             drpickreg <= "00";
             arpickreg <= "00";
             pcdecreg <= '0';
@@ -188,7 +180,7 @@ begin
             opbpickreg <= "00";
             opcodereg <= "0000";
             pcincreg <= '0';
-            pcpickreg <= "101";
+            pcpickreg <= "000";
             drpickreg <= "00";
             arpickreg <= "00";
             pcdecreg <= '0';
@@ -204,7 +196,7 @@ begin
             opbpickreg <= "00";
             opcodereg <= "0000";
             pcincreg <= '0';
-            pcpickreg <= "101";
+            pcpickreg <= "000";
             drpickreg <= "00";
             arpickreg <= "00";
             pcdecreg <= '0';
@@ -225,7 +217,7 @@ begin
                 opbpickreg <= "01";
                 opcodereg <= "0000";
                 pcincreg <= '0';
-                pcpickreg <= "101";
+                pcpickreg <= "000";
                 drpickreg <= "00";
                 arpickreg <= "10";
                 pcdecreg <= '0';
@@ -245,7 +237,7 @@ begin
                 opbpickreg <= "00";
                 opcodereg <= "0000";
                 pcincreg <= '0';
-                pcpickreg <= "001";
+                pcpickreg <= "101";
                 drpickreg <= "00";
                 arpickreg <= "00";
                 pcdecreg <= '0';
@@ -267,7 +259,7 @@ begin
             --    opbpickreg <= "00";
             --    opcodereg <= "0000";
             --    pcincreg <= '0';
-            --    pcpickreg <= "101";
+            --    pcpickreg <= "000";
             --    drpickreg <= "00";
             --    arpickreg <= "00";
             --    pcdecreg <= '0';
@@ -290,7 +282,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0000";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -311,7 +303,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0000";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -332,7 +324,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0001";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -353,7 +345,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0001";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -374,7 +366,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0010";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -397,7 +389,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0010";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -418,7 +410,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0011";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -439,7 +431,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0011";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -460,7 +452,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0100";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -481,7 +473,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0100";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -502,7 +494,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0101";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -523,7 +515,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0101";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -544,7 +536,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0110";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -565,7 +557,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0110";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -586,7 +578,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0111";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -607,7 +599,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "0111";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -628,7 +620,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1000";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -649,7 +641,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1000";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -670,7 +662,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1001";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -691,7 +683,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1001";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -712,7 +704,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1010";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -733,7 +725,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1010";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -754,7 +746,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1011";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -775,7 +767,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1011";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -796,7 +788,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1100";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -817,7 +809,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1100";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -839,7 +831,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1101";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -858,7 +850,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1101";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -878,7 +870,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0000";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -897,7 +889,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "1101";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -915,7 +907,7 @@ begin
                     opbpickreg <= "01";
                     opcodereg <= "1100";
                     pcincreg <= '0';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -936,7 +928,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -956,7 +948,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -978,7 +970,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -996,7 +988,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1020,7 +1012,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1040,7 +1032,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1063,7 +1055,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1082,7 +1074,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1106,7 +1098,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1126,7 +1118,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1148,7 +1140,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1166,7 +1158,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1189,7 +1181,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1208,7 +1200,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1231,7 +1223,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1250,7 +1242,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1274,7 +1266,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1294,7 +1286,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1316,7 +1308,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1334,7 +1326,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "01";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1357,7 +1349,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1376,7 +1368,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1399,7 +1391,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1418,7 +1410,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1443,7 +1435,7 @@ begin
                         opbpickreg <= "00";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "10";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1463,7 +1455,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0010";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1488,7 +1480,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0010";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1509,7 +1501,7 @@ begin
                         opbpickreg <= "01";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "000";
+                        pcpickreg <= "001";
                         drpickreg <= "00";
                         arpickreg <= "00";
                         pcdecreg <= '0';
@@ -1571,7 +1563,7 @@ begin
                     opbpickreg <= "00";
                     opcodereg <= "0000";
                     pcincreg <= '1';
-                    pcpickreg <= "000";
+                    pcpickreg <= "001";
                     drpickreg <= "00";
                     arpickreg <= "00";
                     pcdecreg <= '0';
@@ -1591,7 +1583,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0010";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '1';
@@ -1633,7 +1625,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0010";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '1';
@@ -1675,7 +1667,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1714,7 +1706,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1753,7 +1745,7 @@ begin
                         opbpickreg <= "10";
                         opcodereg <= "0000";
                         pcincreg <= '0';
-                        pcpickreg <= "101";
+                        pcpickreg <= "000";
                         drpickreg <= "00";
                         arpickreg <= "01";
                         pcdecreg <= '0';
@@ -1793,7 +1785,7 @@ begin
                 opbpickreg <= "00";
                 opcodereg <= "0000";
                 pcincreg <= '0';
-                pcpickreg <= "101";
+                pcpickreg <= "000";
                 drpickreg <= "00";
                 arpickreg <= "00";
                 pcdecreg <= '0';

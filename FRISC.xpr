@@ -46,7 +46,7 @@
     <Option Name="IPUserFilesDir" Val="$PIPUSERFILESDIR"/>
     <Option Name="IPStaticSourceDir" Val="$PIPUSERFILESDIR/ipstatic"/>
     <Option Name="EnableBDX" Val="FALSE"/>
-    <Option Name="WTXSimLaunchSim" Val="610"/>
+    <Option Name="WTXSimLaunchSim" Val="767"/>
     <Option Name="WTModelSimLaunchSim" Val="0"/>
     <Option Name="WTQuestaLaunchSim" Val="0"/>
     <Option Name="WTIesLaunchSim" Val="0"/>
@@ -339,6 +339,12 @@
           <Attr Name="UsedIn" Val="simulation"/>
         </FileInfo>
       </File>
+      <File Path="$PSRCDIR/sources_1/new/flatEdgeRegister.vhd">
+        <FileInfo>
+          <Attr Name="UsedIn" Val="synthesis"/>
+          <Attr Name="UsedIn" Val="simulation"/>
+        </FileInfo>
+      </File>
       <File Path="$PSRCDIR/sources_1/new/ControlUnit.vhd">
         <FileInfo>
           <Attr Name="UsedIn" Val="synthesis"/>
@@ -378,7 +384,6 @@
       <Filter Type="Srcs"/>
       <File Path="$PSRCDIR/zbrajalo_sim/new/ALU_full_tb.vhd">
         <FileInfo>
-          <Attr Name="UserDisabled" Val="1"/>
           <Attr Name="ImportPath" Val="$PPRDIR/../../../../../marosevic/Documents/projekt_R_ALU_full/projekt_R_ALU.srcs/zbrajalo_sim/new/ALU_full_tb.vhd"/>
           <Attr Name="ImportTime" Val="1611299722"/>
           <Attr Name="UsedIn" Val="synthesis"/>

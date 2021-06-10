@@ -19,7 +19,9 @@ architecture bench of Complete_tb is
              writeout: out STD_LOGIC;
              waitsigout: out STD_LOGIC;
              sizeout: out STD_LOGIC_VECTOR (1 downto 0);
-             pctest: out STD_LOGIC_VECTOR (31 downto 0));
+             instruction: out STD_LOGIC_VECTOR (31 downto 0);
+             regenable: out STD_LOGIC_VECTOR (31 downto 0);
+             regin: out STD_LOGIC_VECTOR (31 downto 0));
   end component;
 
   signal clk: STD_LOGIC := '1';
@@ -29,7 +31,9 @@ architecture bench of Complete_tb is
   signal writeout: STD_LOGIC;
   signal waitsigout: STD_LOGIC;
   signal sizeout: STD_LOGIC_VECTOR (1 downto 0);
-  signal pctest: STD_LOGIC_VECTOR (31 downto 0);
+  signal instruction: STD_LOGIC_VECTOR (31 downto 0);
+  signal regenable: STD_LOGIC_VECTOR (31 downto 0);
+  signal regin: STD_LOGIC_VECTOR (31 downto 0);
 
 begin
 
@@ -40,7 +44,9 @@ begin
                            writeout   => writeout,
                            waitsigout => waitsigout,
                            sizeout => sizeout,
-                           pctest => pctest);
+                           instruction => instruction,
+                           regenable => regenable,
+                           regin => regin);
 
   stimulus: process
   begin

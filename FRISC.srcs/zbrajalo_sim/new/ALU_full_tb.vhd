@@ -17,18 +17,7 @@ architecture bench of ALU_full_tb is
              writeEnable : in STD_LOGIC;
              statusWriteEnable : in STD_LOGIC;
              clk : in STD_LOGIC;
-             flagsOUT: out STD_LOGIC_VECTOR (31 downto 0);
-             ALU_inputA : out STD_LOGIC_VECTOR (31 downto 0);
-             ALU_inputB : out STD_LOGIC_VECTOR (31 downto 0);
-             ALU_res : out STD_LOGIC_VECTOR (31 downto 0);
-             R0 : out STD_LOGIC_VECTOR (31 downto 0);
-             R1 : out STD_LOGIC_VECTOR (31 downto 0);
-             R2 : out STD_LOGIC_VECTOR (31 downto 0);
-             R3 : out STD_LOGIC_VECTOR (31 downto 0);
-             R4 : out STD_LOGIC_VECTOR (31 downto 0);
-             R5 : out STD_LOGIC_VECTOR (31 downto 0);
-             R6 : out STD_LOGIC_VECTOR (31 downto 0);
-             R7 : out STD_LOGIC_VECTOR (31 downto 0));
+             flagsOUT: out STD_LOGIC_VECTOR (31 downto 0));
   end component;
 
   signal RegA: STD_LOGIC_VECTOR (2 downto 0);
@@ -64,18 +53,7 @@ begin
                            writeEnable       => writeEnable,
                            statusWriteEnable => statusWriteEnable,
                            clk               => clk,
-                           flagsOUT          => flagsOUT,
-                           ALU_inputA        => ALU_inputA,
-                           ALU_inputB        => ALU_inputB,
-                           ALU_res           => ALU_res,
-                           R0                => R0,
-                           R1                => R1,
-                           R2                => R2,
-                           R3                => R3,
-                           R4                => R4,
-                           R5                => R5,
-                           R6                => R6,
-                           R7                => R7 );
+                           flagsOUT          => flagsOUT);
 
   stimulus: process
   begin

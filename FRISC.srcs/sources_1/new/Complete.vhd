@@ -39,10 +39,14 @@ entity Complete is
            writeout: out STD_LOGIC;
            waitsigout: out STD_LOGIC;
            sizeout: out STD_LOGIC_VECTOR (1 downto 0);
-           pctest: out STD_LOGIC_VECTOR(31 downto 0));
+           instruction: out STD_LOGIC_VECTOR(31 downto 0);
+           regenable: out STD_LOGIC_VECTOR (31 downto 0);
+           regin: out STD_LOGIC_VECTOR (31 downto 0));
 end Complete;
 
 architecture Behavioral of Complete is
+    type wrapper is array (1 downto 0) of STD_LOGIC_VECTOR (31 downto 0);
+    signal temp: wrapper;
     signal waitsig: STD_LOGIC;
     signal interrupt: STD_LOGIC_VECTOR (1 downto 0);
     signal address: STD_LOGIC_VECTOR (31 downto 0);
@@ -52,9 +56,9 @@ architecture Behavioral of Complete is
     signal write: STD_LOGIC;
 begin
     FRISC: entity work.FRISC port map(clk => clk, address => address, data => data, waitsig => waitsig, interrupt => interrupt, sizeout => size,
-                read => read, write => write, PCtest => pctest);
+                read => read, write => write, pctest => instruction, A_out => regenable, B_out => regin);
                 
-    RAM: entity work.RAM port map(clk => clk, address => address, data => data, waitsig => waitsig, read => read, write => write, size => size);
+    RAM: entity work.RAM port map(clk => clk, address => address, datafinal => data, waitsig => waitsig, read => read, write => write, size => size);
     
     addressout <= address;
     dataout <= data;

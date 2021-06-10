@@ -40,7 +40,10 @@ entity FRISC is
            sizeout : out STD_LOGIC_VECTOR (1 downto 0);
            read: out STD_LOGIC;
            write: out STD_LOGIC;
-           PCtest: out STD_LOGIC_VECTOR (31 downto 0));
+           PCtest: out STD_LOGIC_VECTOR (31 downto 0);
+           instructionwriteout: out STD_LOGIC;
+           A_out : out STD_LOGIC_VECTOR (31 downto 0);
+           B_out : out STD_LOGIC_VECTOR (31 downto 0));
 end FRISC;
 
 architecture Behavioral of FRISC is
@@ -65,6 +68,7 @@ architecture Behavioral of FRISC is
     signal dataRegOut: STD_LOGIC_VECTOR (31 downto 0);
     
     signal instruction: STD_LOGIC_VECTOR (31 downto 0);
+    signal instructionwrite: STD_LOGIC;
     signal reading: STD_LOGIC;
     signal writing: STD_LOGIC;
     
@@ -100,14 +104,16 @@ architecture Behavioral of FRISC is
     constant N : integer := 32;
     constant increment : STD_LOGIC_VECTOR := "00100000000000000000000000000000";
     constant incrementComplement: STD_LOGIC_VECTOR := "11011111111111111111111111111111";
-    constant MIaddress:  STD_LOGIC_VECTOR := "00100000000000000000000000000000";
+    constant MIaddress:  STD_LOGIC_VECTOR := "00010000000000000000000000000000";
     constant NMIaddress: STD_LOGIC_VECTOR := "00110000000000000000000000000000";
 begin
     ALU: entity work.ALU_FULL port map(RegA => regAPick, RegB => regBPick, RegistryIN => registryMUXOut, RegWrite => regwritepick, Const => extenderOut,
             statusregwrite => regtostatusenable, statusregread => operandApick, 
             constSelection => operandBpick, instruction => opsel, writeEnable => regwriteenable, statusWriteEnable => statuswriteenable,
-            clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout);
+            clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout,
+            A_out => A_out);
 
+    B_out <= ALUresult;
 
     negGIE: entity work.circuitNOT port map(I => aluflagsout(4), O => GIEnegate);
     GIEMUX: entity work.MUX2to1 port map(I1 => aluflagsout(4), I2 => GIEnegate, selection => gieselect, output => statusregin(4));
@@ -122,9 +128,10 @@ begin
         M_i: entity work.MUX4to1 port map(input(0) => PCDecremented(i), input(1) => data(i), input(2) => regBout(i), input(3) => '0', selection => drpick, output => dataRegMUXOut(i));
     end generate;
     
-    dataRegister: entity work.fallingEdgeRegister port map(d => dataRegMUXOut, enable => '1', clk => waitsig, q => dataRegOut);
+    dataRegister: entity work.flatEdgeRegister port map(d => dataRegMUXOut, enable => '1', q => dataRegOut);
     
-    instructionRegister: entity work.fallingEdgeRegister port map(d => data, clk => clk, enable => reading, q => instruction);
+    instructionRegister: entity work.flatEdgeRegister port map(d => data, enable => instructionwrite, q => instruction);
+    --instructionwriteout <= instructionwrite;
     
     registryInMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX4to1 port map(input(0) => ALUresult(i), input(1) => aluflagsout(i), input(2) => dataRegOut(i), input(3) => '0',
@@ -161,17 +168,19 @@ begin
     
     addressShuffler: entity work.Shuffler port map(address => AddressRegisterMUXOut, size => size, output => AddressShufflerOut);
     
-    address <= AddressRegisterMUXOut;
+    address <= AddressShufflerOut;
     --addressRegister: entity work.risingEdgeRegister port map(d => AddressShufflerOut, clk => AddressWrite, enable => '1', q => address);
     
     CU: entity work.ControlUnit port map(instruction => instruction, waitsig => waitsig, clk => clk, previous_condition => PCIncrementMUXCondition,
             regin => reginpick, opbpick => operandBpick, opcode => opsel, pcinc => pcinc, pcpick => pcpick, drpick => drpick, arpick => arpick,
             pcdec => pcdec, gieselect => gieselect, const => const, size => size, regA => regApick, regB => regBpick, regWrite => regwritepick,
             statusregwrite => regtostatusenable, statusregread => operandApick, writeenable => regwriteenable, statuswriteenable => statuswriteenable, 
-            conditionout => condition, interrupt => interrupt, GIE => statusregout(4), read => reading, write => writing, pcpicktest => PCtest(2 downto 0));
+            conditionout => condition, interrupt => interrupt, GIE => statusregout(4), readfinal => reading, writefinal => writing, instructionwrite => instructionwrite,
+            counttest => instructionwriteout, instructiontest => PCtest);
     
-    PCtest(31 downto 3) <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
+    --PCtest(31 downto 3) <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
     --PCtest(2 downto 0) <= pcpick;
+    --PCtest <= PCOut;
     read <= reading;
     write <= writing;
     data <= dataregout when writing = '1' else (others => 'Z');

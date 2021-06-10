@@ -38,8 +38,9 @@ entity RAM is
            read : in STD_LOGIC;
            write : in STD_LOGIC;
            size: in STD_LOGIC_VECTOR (1 downto 0);
-           data : inout STD_LOGIC_VECTOR (31 downto 0);
-           waitsig : out STD_LOGIC := '0');
+           datafinal : inout STD_LOGIC_VECTOR (31 downto 0);
+           waitsig : out STD_LOGIC := '0';
+           datatest : out STD_LOGIC_VECTOR (31 downto 0));
 end RAM;
 
 architecture Behavioral of RAM is
@@ -48,11 +49,11 @@ type RAM_ARRAY is array (0 to 127 ) of std_logic_vector (7 downto 0);
 -- initial values in the RAM
 signal RAM: RAM_ARRAY :=(
    x"04",x"00",x"00",x"01",-- 0x00: 
-   x"04",x"00",x"00",x"02",-- 0x04: 
-   x"04",x"00",x"00",x"03",-- 0x08: 
-   x"04",x"00",x"00",x"04",-- 0x0C: 
-   x"04",x"00",x"00",x"05",-- 0x10: 
-   x"04",x"00",x"00",x"06",-- 0x14: 
+   x"04",x"90",x"00",x"0A",-- 0x04: 
+   x"31",x"02",x"00",x"00",-- 0x08: 
+   x"45",x"A0",x"00",x"07",-- 0x0C: 
+   x"88",x"00",x"00",x"40",-- 0x10: 
+   x"FF",x"00",x"00",x"06",-- 0x14: 
    x"04",x"00",x"00",x"07",-- 0x18: 
    x"04",x"00",x"00",x"08",-- 0x1C: 
    x"04",x"00",x"00",x"09",-- 0x20: 
@@ -78,10 +79,13 @@ signal RAM: RAM_ARRAY :=(
    x"00",x"00",x"00",x"00",
    x"00",x"00",x"00",x"00",
    x"00",x"00",x"00",x"00",
+   --x"00",x"00",x"00",x"00",
+   --x"00",x"00",x"00",x"00",
    x"00",x"00",x"00",x"00"
    ); 
+signal data: STD_LOGIC_VECTOR (31 downto 0);
 begin
-process(clk)
+process(address, clk, read, write)
 begin
  --if(rising_edge(clk)) then
     if (read = '1') then
@@ -101,6 +105,7 @@ begin
         end if;
         waitsig <= '0';
     elsif (write = '1') then
+        data <= (others => 'Z');
         waitsig <= '1';
         if (size = "00") then
             RAM(to_integer(unsigned(address)) + 3) <= data(7 downto 0);
@@ -118,5 +123,7 @@ begin
         data <= (others => 'Z');
     end if;
  --end if;
-end process; 
+end process;
+    datatest <= data;
+    datafinal <= data;
 end Behavioral;

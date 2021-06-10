@@ -119,6 +119,7 @@ read_vhdl -library xil_defaultlib {
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ConditionTester.vhd
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Shuffler.vhd
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd
+  /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd
   /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd

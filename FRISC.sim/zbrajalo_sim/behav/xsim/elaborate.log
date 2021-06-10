@@ -44,6 +44,7 @@ Compiling architecture behavioral of entity xil_defaultlib.BarrelShifter [barrel
 Compiling architecture behavioral of entity xil_defaultlib.NZcalculator [nzcalculator_default]
 Compiling architecture behavioral of entity xil_defaultlib.ArithmeticLogicUnit [arithmeticlogicunit_default]
 Compiling architecture behavioral of entity xil_defaultlib.ALU_full [alu_full_default]
+Compiling architecture behavioral of entity xil_defaultlib.flatEdgeRegister [flatedgeregister_default]
 Compiling architecture behavioral of entity xil_defaultlib.Extender [extender_default]
 Compiling architecture behavioral of entity xil_defaultlib.ConditionTester [conditiontester_default]
 Compiling architecture behavioral of entity xil_defaultlib.Shuffler [shuffler_default]

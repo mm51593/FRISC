@@ -48,7 +48,9 @@ entity ALU_full is
            result: out STD_LOGIC_VECTOR (31 downto 0);
            flagsOUT: out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
            RegBOut : out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
-           statusreg: out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000");
+           statusreg: out STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
+           A_out : out STD_LOGIC_VECTOR (31 downto 0);
+           B_out : out STD_LOGIC_VECTOR (31 downto 0));
 
 end ALU_full;
 
@@ -67,6 +69,8 @@ begin
     
     carry <= flagsTemp(1);
     statusreg <= flagsTemp;
+    A_out <= operandA;
+    B_out <= operandB;
     flagsOUT(31 downto 4) <= flagsTemp (31 downto 4);
     ArithmeticLogicUnit: entity work.ArithmeticLogicUnit port map (operandA => operandA, operandB => operandB,
                        carryIN => carry, operationSelect => instruction, clk => clk, result => result, flags => flagsOUT(3 downto 0));

@@ -71,15 +71,18 @@ architecture Behavioral of ArithmeticLogicUnit is
     signal  Binvertselection: STD_LOGIC;
     
 begin
-    RegisterA: entity work.risingEdgeRegister port map(d => operandA, clk => clk, enable => '1', q => OpA);
-    RegisterB: entity work.risingEdgeRegister port map(d => operandB, clk => clk, enable => '1', q => OpB);
+    --RegisterA: entity work.risingEdgeRegister port map(d => operandA, clk => clk, enable => '1', q => OpA);
+    --RegisterB: entity work.risingEdgeRegister port map(d => operandB, clk => clk, enable => '1', q => OpB);
+    
+    OpA <= operandA;
+    OpB <= operandB;
     
     A_out <= OpA;
     B_out <= OpB;
     
-    RegisterOP: entity work.risingEdgeRegister port map(d(3 downto 0) => operationSelect, d(31 downto 4) => "0000000000000000000000000000", clk => clk, enable => '1', q => RegOPOut);
+    --RegisterOP: entity work.risingEdgeRegister port map(d(3 downto 0) => operationSelect, d(31 downto 4) => "0000000000000000000000000000", clk => clk, enable => '1', q => RegOPOut);
     
-    OpSel <= RegOPOut (3 downto 0);
+    OpSel <= operationSelect;
     
     getBinvertselection: entity work.circuitOR3 port map(A => OpSel(3), B => OpSel(2), C => OpSel(1), R => Binvertselection);
     Bmux: entity work.operandBinverter port map(Braw => OpB, invert => Binvertselection, Bout => Bmuxed);

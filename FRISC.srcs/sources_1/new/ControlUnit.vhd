@@ -38,6 +38,7 @@ entity ControlUnit is
            previous_condition: in STD_LOGIC;
            interrupt: in STD_LOGIC_VECTOR (1 downto 0);
            GIE: in STD_LOGIC;
+           breq: in STD_LOGIC;
            
            regin: out STD_LOGIC_VECTOR(1 downto 0);
            opbpick: out STD_LOGIC_VECTOR(1 downto 0);
@@ -45,6 +46,7 @@ entity ControlUnit is
            pcinc: out STD_LOGIC := '0';
            pcpick: out STD_LOGIC_VECTOR(2 downto 0) := "101";
            drpick: out STD_LOGIC_VECTOR(1 downto 0);
+           drenable: out STD_LOGIC;
            arpick: out STD_LOGIC_VECTOR(1 downto 0);
            pcdec: out STD_LOGIC := '0';
            gieselect: out STD_LOGIC;
@@ -52,6 +54,7 @@ entity ControlUnit is
            size: out STD_LOGIC_VECTOR(1 downto 0);
            instructiontest: out STD_LOGIC_VECTOR(31 downto 0);
            counttest: out STD_LOGIC;
+           back: out STD_LOGIC := '0';
            
            regA: out STD_LOGIC_VECTOR(2 downto 0);
            regB: out STD_LOGIC_VECTOR(2 downto 0);
@@ -85,6 +88,8 @@ architecture Behavioral of ControlUnit is
     signal conditionreg: STD_LOGIC_VECTOR(3 downto 0) := "0000";
     signal sizereg: STD_LOGIC_VECTOR(1 downto 0);
     
+    signal instructiontemp: STD_LOGIC_VECTOR (31 downto 0);
+    
     signal regAreg: STD_LOGIC_VECTOR (2 downto 0);
     signal regBreg: STD_LOGIC_VECTOR (2 downto 0); 
     signal regRreg: STD_LOGIC_VECTOR (2 downto 0);
@@ -92,7 +97,7 @@ architecture Behavioral of ControlUnit is
     signal count: STD_LOGIC := '0';
     signal step: STD_LOGIC := '0';
     signal halt: STD_LOGIC := '0';
-    signal IIF: STD_LOGIC;
+    signal IIF: STD_LOGIC := '1';
     
     signal read: STD_LOGIC := '0';
     signal write: STD_LOGIC := '0';
@@ -101,6 +106,8 @@ architecture Behavioral of ControlUnit is
     signal readregout: STD_LOGIC := '0';
     signal writeregout: STD_LOGIC := '0';
     
+    signal iscontrol: STD_LOGIC := '0';
+    
     signal constRegTemp: STD_LOGIC_VECTOR (31 downto 0);
     signal controlSignalRegTemp: STD_LOGIC_VECTOR (31 downto 0);
     
@@ -108,16 +115,16 @@ architecture Behavioral of ControlUnit is
     signal current_state: states := state_start;
 
 begin
-    constReg: entity work.risingEdgeRegister port map(d(19 downto 0) => instruction(19 downto 0), d(22 downto 20) => regAreg,
-            d(25 downto 23) => regBreg, d(28 downto 26) => regRreg, d(31 downto 29) => "000", clk => clk, enable => '1',
+    constReg: entity work.flatEdgeRegister port map(d(19 downto 0) => instruction(19 downto 0), d(22 downto 20) => regAreg,
+            d(25 downto 23) => regBreg, d(28 downto 26) => regRreg, d(31 downto 29) => "000", enable => '1',
             q(19 downto 0) => const, q(22 downto 20) => constregtemp(22 downto 20), q(25 downto 23) => constregtemp(25 downto 23), 
             q(28 downto 26) => constregtemp(28 downto 26), q(31 downto 29) => constRegTemp(31 downto 29));
     
-    controlSignalsReg: entity work.risingEdgeRegister port map(
+    controlSignalsReg: entity work.flatEdgeRegister port map(
             d(1 downto 0) => reginreg, d(3 downto 2) => opbpickreg, d(7 downto 4) => opcodereg, d(8) => pcincreg, d(11 downto 9) => pcpickreg,
             d(13 downto 12) => drpickreg, d(15 downto 14) => arpickreg, d(16) => pcdecreg, d(17) => statusregwritereg,
             d(18) => statusregreadreg, d(19) => writeenablereg, d(20) => statuswriteenablereg, d(24 downto 21) => conditionreg, 
-            d(25) => gieselectreg, d(26) => readreg, d(27) => writereg, d(31 downto 28) => "0000", clk => clk, enable => '1',
+            d(25) => gieselectreg, d(26) => readreg, d(27) => writereg, d(31 downto 28) => "0000", enable => '1',
             q(1 downto 0) => regin, q(3 downto 2) => constregtemp(3 downto 2), q(7 downto 4) => opcode, q(8) => pcinc, q(11 downto 9) => pcpick,
             q(13 downto 12) => drpick, q(15 downto 14) => arpick, q(16) => pcdec, q(17) => statusregwrite, q(18) => statusregread,
             q(19) => writeenable, q(20) => statuswriteenable, q(24 downto 21) => conditionout, q(25) => gieselect, q(26) => readregout, q(27) => writeregout,
@@ -131,23 +138,32 @@ begin
     regB <= regBreg;
     opbpick <= opbpickreg;
     
-    instructiontest <= instruction;
-    counttest <= halt;       
+    instructiontest <= instructiontemp;
+    counttest <= IIF;
     process(clk, waitsig)
     begin
-        if (falling_edge(clk) and waitsig = '0' and halt = '0') then
+        if (falling_edge(clk) and waitsig = '0' and halt = '0' and breq = '0') then
+            back <= '0';
+            if (iscontrol = '1' and previous_condition = '0') then
+                count <= '0';
+                iscontrol <= '0';
+            end if;
             if (IIF = '1' and interrupt(1) = '1') then
                 current_state <= state_NMI;
                 
             elsif (IIF = '1' and GIE = '1' and interrupt(0) = '1') then
                 current_state <= state_INT;
                 
-            else
+            elsif (count = '0') then
                 current_state <= state_fetch;
                 --step <= not step;
             end if;
         end if;
-        if (rising_edge(clk) and waitsig = '0' and halt = '0') then
+        if (falling_edge(clk) and breq = '1') then
+            current_state <= state_halt;
+            back <= '1';
+        end if;
+        if (rising_edge(clk) and waitsig = '0' and halt = '0' and breq = '0') then
             if (count = '0') then
                 current_state <= state_decode;
             else
@@ -165,23 +181,26 @@ begin
     process(instruction, current_state)
     begin
         if (current_state = state_fetch) then
-            reginreg <= "00";
-            opbpickreg <= "00";
-            opcodereg <= "0000";
-            pcincreg <= '0';
-            pcpickreg <= "000";
-            drpickreg <= "00";
+            --reginreg <= "00";
+            --opbpickreg <= "00";
+            --opcodereg <= "0000";
+            --pcincreg <= '0';
+            --pcpickreg <= "000";
+            --drpickreg <= "00";
             arpickreg <= "00";
-            pcdecreg <= '0';
-            statusregwritereg <= '0';
-            statusregreadreg <= '0';
-            writeenablereg <= '0';
-            statuswriteenablereg <= '0';
+            --pcdecreg <= '0';
+            --statusregwritereg <= '0';
+            --statusregreadreg <= '0';
+            --writeenablereg <= '0';
+            --statuswriteenablereg <= '0';
             size <= "00";
-            gieselectreg <= '0';
+            drenable <= '1';
+            --gieselectreg <= '0';
             
+            write <= '0';
             read <= '1';
             instructionwrite <= '1';
+            instructiontemp <= instruction;
             
         elsif (current_state = state_halt) then
             reginreg <= "00";
@@ -200,21 +219,23 @@ begin
             gieselectreg <= '0';
             
         elsif (current_state = state_NMI) then
-            reginreg <= "00";
-            opbpickreg <= "00";
-            opcodereg <= "0000";
-            pcincreg <= '0';
-            pcpickreg <= "101";
-            drpickreg <= "00";
-            arpickreg <= "00";
-            pcdecreg <= '0';
-            statusregwritereg <= '0';
-            statusregreadreg <= '0';
-            writeenablereg <= '0';
-            statuswriteenablereg <= '0';
-            sizereg <= "00";
-            gieselectreg <= '0';
+            --reginreg <= "00";
+            --opbpickreg <= "00";
+            --opcodereg <= "0000";
+            --pcincreg <= '0';
+            --pcpickreg <= "100";
+            --drpickreg <= "00";
+            --arpickreg <= "00";
+            --pcdecreg <= '0';
+            --statusregwritereg <= '0';
+            --statusregreadreg <= '0';
+            --writeenablereg <= '0';
+            --statuswriteenablereg <= '0';
+            --sizereg <= "00";
+            --gieselectreg <= '0';
             
+            --iscontrol <= '1';
+            instructiontemp(31 downto 26) <= "111100";
             IIF <= '0';
             
             conditionreg <= "0000";
@@ -282,7 +303,7 @@ begin
             --    read <= '1';
             --    instructionwrite <= '1';
             --end if;
-        case instruction(31 downto 26) is
+        case instructiontemp(31 downto 26) is
             -- ALU instructions 
             -- ADD reg1 + reg2
             when "000000" =>
@@ -932,6 +953,7 @@ begin
             -- LOAD
             when "100000" =>
                     if (count = '0') then
+                        instructionwrite <= '0';
                         reginreg    <= "00";
                         opbpickreg <= "01";
                         opcodereg <= "0000";
@@ -974,12 +996,13 @@ begin
 
             when "100001" =>
                     if (count = '0') then
+                        instructionwrite <= '0';
                         reginreg    <= "00";
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
                         pcpickreg <= "101";
-                        drpickreg <= "00";
+                        drpickreg <= "01";
                         arpickreg <= "01";
                         pcdecreg <= '0';
                         statusregwritereg <= '0';
@@ -992,6 +1015,7 @@ begin
                         
                         count <= '1';
                     elsif (count = '1') then
+                        drenable <= '0';
                         reginreg    <= "10";
                         opbpickreg <= "01";
                         opcodereg <= "0000";
@@ -1017,8 +1041,8 @@ begin
                     if (count = '0') then   -- write to DR
                         instructionwrite <= '0';
                         reginreg    <= "00";
-                        opbpickreg <= "00";
-                        opcodereg <= "0000";
+                        opbpickreg <= "01";
+                        opcodereg <= "1101";
                         pcincreg <= '0';
                         pcpickreg <= "101";
                         drpickreg <= "10";
@@ -1036,13 +1060,14 @@ begin
                         count <= '1';
                     elsif (count = '1') then    -- write to AR
                         count <= '0';
+                        drenable <= '0';                        
                         reginreg    <= "00";
-                        opbpickreg <= "00";
-                        opcodereg <= "1101";
+                        opbpickreg <= "01";
+                        opcodereg <= "0000";
                         pcincreg <= '0';
                         pcpickreg <= "000";
                         drpickreg <= "00";
-                        arpickreg <= "01";
+                        arpickreg <= "11";
                         pcdecreg <= '0';
                         statusregwritereg <= '0';
                         statusregreadreg <= '0';
@@ -1054,14 +1079,15 @@ begin
                         read <= '0';
                         write <= '1';
                         
-                        regBreg <= instruction(22 downto 20);    
+                        regAreg <= instruction(22 downto 20);    
                     end if;
                     
             when "100011" =>
                     if (count = '0') then   -- write to DR
+                        instructionwrite <= '0';
                         reginreg    <= "00";
-                        opbpickreg <= "00";
-                        opcodereg <= "0000";
+                        opbpickreg <= "01";
+                        opcodereg <= "1101";
                         pcincreg <= '0';
                         pcpickreg <= "101";
                         drpickreg <= "10";
@@ -1078,13 +1104,15 @@ begin
                         
                         count <= '1';
                     elsif (count = '1') then    -- write to AR
+                        count <= '0';
+                        drenable <= '0';                        
                         reginreg    <= "00";
                         opbpickreg <= "01";
                         opcodereg <= "1101";
                         pcincreg <= '0';
                         pcpickreg <= "000";
                         drpickreg <= "00";
-                        arpickreg <= "00";
+                        arpickreg <= "11";
                         pcdecreg <= '0';
                         statusregwritereg <= '0';
                         statusregreadreg <= '0';
@@ -1092,11 +1120,11 @@ begin
                         statuswriteenablereg <= '0';
                         sizereg <= "00";
                         gieselectreg <= '0';
+                        
+                        read <= '0';
                         write <= '1';
                         
-                        regBreg <= instruction(22 downto 20);
-                        
-                        count <= '0';
+                        regAreg <= instruction(22 downto 20);
                     end if;
 
             -- LOADH
@@ -1528,6 +1556,28 @@ begin
             -- control instuctions
             -- JP adr20
             when "110000" =>
+                if (count = '0') then
+                    instructionwrite <= '0';
+                    reginreg <= "00";
+                    opbpickreg <= "00";
+                    opcodereg <= "0000";
+                    pcincreg <= '0';
+                    pcpickreg <= "101";
+                    drpickreg <= "00";
+                    arpickreg <= "00";
+                    pcdecreg <= '0';
+                    statusregwritereg <= '0';
+                    statusregreadreg <= '0';
+                    writeenablereg <= '0';
+                    statuswriteenablereg <= '0';
+                    sizereg <= "00";
+                    gieselectreg <= '0';
+                    
+                    iscontrol <= '1';
+                    count <= '1';
+                    conditionreg <= instruction(25 downto 22);
+                else
+                    instructionwrite <= '1';
                     reginreg <= "00";
                     opbpickreg <= "00";
                     opcodereg <= "0000";
@@ -1543,10 +1593,35 @@ begin
                     sizereg <= "00";
                     gieselectreg <= '0';
                     
+                    iscontrol <= '0';
+                    count <= '0';
                     conditionreg <= instruction(25 downto 22);
+                end if;
                     
             -- JP (adrreg)
             when "110001" =>
+                if (count = '0') then
+                    instructionwrite <= '0';
+                    reginreg <= "00";
+                    opbpickreg <= "00";
+                    opcodereg <= "0000";
+                    pcincreg <= '0';
+                    pcpickreg <= "101";
+                    drpickreg <= "00";
+                    arpickreg <= "00";
+                    pcdecreg <= '0';
+                    statusregwritereg <= '0';
+                    statusregreadreg <= '0';
+                    writeenablereg <= '0';
+                    statuswriteenablereg <= '0';
+                    sizereg <= "00";
+                    gieselectreg <= '0';
+                    
+                    iscontrol <= '1';
+                    count <= '1';
+                    conditionreg <= instruction(25 downto 22);
+                else
+                    instructionwrite <= '1';
                     reginreg <= "00";
                     opbpickreg <= "00";
                     opcodereg <= "0000";
@@ -1562,11 +1637,36 @@ begin
                     sizereg <= "00";
                     gieselectreg <= '0';
                     
+                    iscontrol <= '0';
+                    count <= '0';
                     regBreg <= instruction(21 downto 19);
                     conditionreg <= instruction(25 downto 22);
+                end if;
                     
             -- JR PC + const20
             when "110010" =>
+                if (count = '0') then
+                    instructionwrite <= '0';
+                    reginreg <= "00";
+                    opbpickreg <= "00";
+                    opcodereg <= "0000";
+                    pcincreg <= '0';
+                    pcpickreg <= "101";
+                    drpickreg <= "00";
+                    arpickreg <= "00";
+                    pcdecreg <= '0';
+                    statusregwritereg <= '0';
+                    statusregreadreg <= '0';
+                    writeenablereg <= '0';
+                    statuswriteenablereg <= '0';
+                    sizereg <= "00";
+                    gieselectreg <= '0';
+
+                    iscontrol <= '1';
+                    count <= '1';
+                    conditionreg <= instruction(25 downto 22);
+                else
+                    instructionwrite <= '1';
                     reginreg <= "00";
                     opbpickreg <= "00";
                     opcodereg <= "0000";
@@ -1582,7 +1682,10 @@ begin
                     sizereg <= "00";
                     gieselectreg <= '0';
                     
+                    iscontrol <= '0';
+                    count <= '0';
                     conditionreg <= instruction(25 downto 22);
+                end if;
                     
             -- CALL adr20
             when "110100" =>
@@ -1786,7 +1889,56 @@ begin
                         conditionreg <= "0000";
                         count <= '0';
                     end if;
+            
+            -- jump to NMI
+            when "111100" =>
+                if (count = '0') then
+                    instructionwrite <= '0';
+                    reginreg <= "00";
+                    opbpickreg <= "10";
+                    opcodereg <= "0010";
+                    pcincreg <= '0';
+                    pcpickreg <= "101";
+                    drpickreg <= "00";
+                    arpickreg <= "01";
+                    pcdecreg <= '0';
+                    statusregwritereg <= '0';
+                    statusregreadreg <= '0';
+                    writeenablereg <= '1';
+                    statuswriteenablereg <= '0';
+                    sizereg <= "00";
+                    gieselectreg <= '0';
                     
+                    regAreg <= "111";
+                    regRreg <= "111";
+                    
+                    read <= '0';
+                    write <= '1';
+                    iscontrol <= '1';
+                    count <= '1';
+                else
+                    instructionwrite <= '1';
+                    reginreg <= "00";
+                    opbpickreg <= "00";
+                    opcodereg <= "0000";
+                    pcincreg <= '0';
+                    pcpickreg <= "010";
+                    drpickreg <= "00";
+                    arpickreg <= "00";
+                    pcdecreg <= '0';
+                    statusregwritereg <= '0';
+                    statusregreadreg <= '0';
+                    writeenablereg <= '0';
+                    statuswriteenablereg <= '0';
+                    sizereg <= "00";
+                    gieselectreg <= '0';
+                    
+                    write <= '0';
+                    iscontrol <= '0';
+                    count <= '0';
+                    regBreg <= instruction(21 downto 19);
+                    conditionreg <= instruction(25 downto 22);
+                end if;
             -- HALT
             when others =>
                 reginreg <= "00";

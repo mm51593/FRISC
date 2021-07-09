@@ -1,0 +1,52 @@
+# compile vhdl design source files
+vhdl xil_defaultlib  \
+"../../../../FRISC.srcs/sources_1/new/circuitNOT.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitNAND.vhd" \
+"../../../../FRISC.srcs/sources_1/new/2to1MUX.vhd" \
+"../../../../FRISC.srcs/sources_1/new/fallingEdgeRegister.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitAND3.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitOR4.vhd" \
+"../../../../FRISC.srcs/sources_1/new/MUX4to1.vhd" \
+"../../../../FRISC.srcs/sources_1/new/MUX8to1.vhd" \
+"../../../../FRISC.srcs/sources_1/new/risingEdgeRegister.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitAND4.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Decoder3to8.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitOR3.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitXOR.vhd" \
+"../../../../FRISC.srcs/sources_1/new/operandBmux.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitAND.vhd" \
+"../../../../FRISC.srcs/sources_1/new/halfAdder.vhd" \
+"../../../../FRISC.srcs/sources_1/new/circuitOR2.vhd" \
+"../../../../FRISC.srcs/sources_1/new/fullAdder.vhd" \
+"../../../../FRISC.srcs/sources_1/new/arithmeticOperator.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ANDunit.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ORunit.vhd" \
+"../../../../FRISC.srcs/sources_1/new/XORunit.vhd" \
+"../../../../FRISC.srcs/sources_1/new/BarrelMUX.vhd" \
+"../../../../FRISC.srcs/sources_1/new/MUX16to1.vhd" \
+"../../../../FRISC.srcs/sources_1/imports/new/circuitOR32.vhd" \
+"../../../../FRISC.srcs/sources_1/new/BarrelShifter.vhd" \
+"../../../../FRISC.srcs/sources_1/new/registry.vhd" \
+"../../../../FRISC.srcs/sources_1/new/StatusFlags.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ArithmeticLogicUnit.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ALU_full.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Extender.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ConditionTester.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Shuffler.vhd" \
+"../../../../FRISC.srcs/sources_1/new/RAM1.vhd" \
+"../../../../FRISC.srcs/sources_1/new/RAM.vhd" \
+"../../../../FRISC.srcs/sources_1/new/RAM3.vhd" \
+"../../../../FRISC.srcs/sources_1/new/flatEdgeRegister.vhd" \
+"../../../../FRISC.srcs/sources_1/new/ControlUnit.vhd" \
+"../../../../FRISC.srcs/sources_1/new/FRISC.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Complete.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Complete1.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Complete3.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Complete3_tb.vhd" \
+"../../../../FRISC.srcs/zbrajalo_sim/new/ALU_full_tb.vhd" \
+"../../../../FRISC.srcs/zbrajalo_sim/new/ALU_tb.vhd" \
+"../../../../FRISC.srcs/zbrajalo_sim/new/Complete_sim.vhd" \
+"../../../../FRISC.srcs/sources_1/new/Complete1_tb.vhd" \
+
+# Do not sort compile order
+nosort

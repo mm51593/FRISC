@@ -31,8 +31,9 @@ use IEEE.STD_LOGIC_1164.ALL;
 --library UNISIM;
 --use UNISIM.VComponents.all;
 
-entity Complete is
+entity Complete2 is
     Port ( clk : in STD_LOGIC;
+           breq: in STD_LOGIC;
            addressout : out STD_LOGIC_VECTOR (31 downto 0);
            dataout : out STD_LOGIC_VECTOR (31 downto 0);
            readout: out STD_LOGIC;
@@ -40,11 +41,12 @@ entity Complete is
            waitsigout: out STD_LOGIC;
            sizeout: out STD_LOGIC_VECTOR (1 downto 0);
            instruction: out STD_LOGIC_VECTOR(31 downto 0);
-           regenable: out STD_LOGIC_VECTOR (31 downto 0);
-           regin: out STD_LOGIC_VECTOR (31 downto 0));
-end Complete;
+           back: out STD_LOGIC;
+           pcpick: out STD_LOGIC_VECTOR(31 downto 0);
+           PCout: out STD_LOGIC_VECTOR(31 downto 0));
+end Complete2;
 
-architecture Behavioral of Complete is
+architecture Behavioral of Complete2 is
     type wrapper is array (1 downto 0) of STD_LOGIC_VECTOR (31 downto 0);
     signal temp: wrapper;
     signal waitsig: STD_LOGIC;
@@ -56,9 +58,9 @@ architecture Behavioral of Complete is
     signal write: STD_LOGIC;
 begin
     FRISC: entity work.FRISC port map(clk => clk, address => address, data => data, waitsig => waitsig, interrupt => interrupt, sizeout => size,
-                read => read, write => write, pctest => instruction, A_out => regenable, B_out => regin);
+                read => read, write => write, pctest => instruction, A_out => pcpick, B_out => PCout, breq => breq, back => back);
                 
-    RAM: entity work.RAM port map(clk => clk, address => address, datafinal => data, waitsig => waitsig, read => read, write => write, size => size);
+    RAM: entity work.RAM2 port map(clk => clk, address => address, datafinal => data, waitsig => waitsig, read => read, write => write, size => size);
     
     addressout <= address;
     dataout <= data;

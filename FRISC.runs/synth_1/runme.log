@@ -1,6 +1,6 @@
 
 *** Running vivado
-    with args -log Complete.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Complete.tcl
+    with args -log Complete2.vds -m64 -product Vivado -mode batch -messageDb vivado.pb -notrace -source Complete2.tcl
 
 
 ****** Vivado v2020.2 (64-bit)
@@ -8,19 +8,19 @@
   **** IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
     ** Copyright 1986-2020 Xilinx, Inc. All Rights Reserved.
 
-source Complete.tcl -notrace
-Command: synth_design -top Complete -part xc7k70tfbv676-1
+source Complete2.tcl -notrace
+Command: synth_design -top Complete2 -part xc7k70tfbv676-1
 Starting synth_design
 Attempting to get a license for feature 'Synthesis' and/or device 'xc7k70t'
 INFO: [Common 17-349] Got license for feature 'Synthesis' and/or device 'xc7k70t'
 INFO: [Synth 8-7079] Multithreading enabled for synth_design using a maximum of 4 processes.
 INFO: [Synth 8-7078] Launching helper process for spawning children vivado processes
-INFO: [Synth 8-7075] Helper process launched with PID 38273
+INFO: [Synth 8-7075] Helper process launched with PID 7658
 ---------------------------------------------------------------------------------
-Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:04 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 6571 ; free virtual = 27602
+Starting Synthesize : Time (s): cpu = 00:00:03 ; elapsed = 00:00:03 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 9359 ; free virtual = 28618
 ---------------------------------------------------------------------------------
-INFO: [Synth 8-638] synthesizing module 'Complete' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd:47]
-INFO: [Synth 8-638] synthesizing module 'FRISC' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd:49]
+INFO: [Synth 8-638] synthesizing module 'Complete2' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd:49]
+INFO: [Synth 8-638] synthesizing module 'FRISC' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd:51]
 INFO: [Synth 8-638] synthesizing module 'ALU_full' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ALU_full.vhd:57]
 INFO: [Synth 8-638] synthesizing module 'registry' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/registry.vhd:56]
 INFO: [Synth 8-638] synthesizing module 'fallingEdgeRegister' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/fallingEdgeRegister.vhd:41]
@@ -39,8 +39,8 @@ INFO: [Synth 8-638] synthesizing module 'circuitNAND2' [/home/extra/Xilinx/Vivad
 INFO: [Synth 8-256] done synthesizing module 'circuitNAND2' (6#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/circuitNAND.vhd:40]
 INFO: [Synth 8-256] done synthesizing module 'MUX2to1' (7#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/2to1MUX.vhd:41]
 INFO: [Synth 8-256] done synthesizing module 'MUX8to1' (8#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/MUX8to1.vhd:40]
-INFO: [Synth 8-638] synthesizing module 'risingEdgeRegister' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/risingEdgeRegister.vhd:41]
-INFO: [Synth 8-256] done synthesizing module 'risingEdgeRegister' (9#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/risingEdgeRegister.vhd:41]
+INFO: [Synth 8-638] synthesizing module 'flatEdgeRegister' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd:40]
+INFO: [Synth 8-256] done synthesizing module 'flatEdgeRegister' (9#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd:40]
 INFO: [Synth 8-638] synthesizing module 'Decoder3to8' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Decoder3to8.vhd:40]
 INFO: [Synth 8-638] synthesizing module 'circuitAND4' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/circuitAND4.vhd:41]
 INFO: [Synth 8-256] done synthesizing module 'circuitAND4' (10#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/circuitAND4.vhd:41]
@@ -81,63 +81,67 @@ INFO: [Synth 8-638] synthesizing module 'NZcalculator' [/home/extra/Xilinx/Vivad
 INFO: [Synth 8-256] done synthesizing module 'NZcalculator' (28#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/StatusFlags.vhd:40]
 INFO: [Synth 8-256] done synthesizing module 'ArithmeticLogicUnit' (29#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ArithmeticLogicUnit.vhd:47]
 INFO: [Synth 8-256] done synthesizing module 'ALU_full' (30#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ALU_full.vhd:57]
-INFO: [Synth 8-638] synthesizing module 'flatEdgeRegister' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd:40]
-INFO: [Synth 8-256] done synthesizing module 'flatEdgeRegister' (31#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd:40]
 INFO: [Synth 8-638] synthesizing module 'Extender' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Extender.vhd:39]
-INFO: [Synth 8-256] done synthesizing module 'Extender' (32#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Extender.vhd:39]
+INFO: [Synth 8-256] done synthesizing module 'Extender' (31#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Extender.vhd:39]
 INFO: [Synth 8-638] synthesizing module 'ConditionTester' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ConditionTester.vhd:40]
-INFO: [Synth 8-256] done synthesizing module 'ConditionTester' (33#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ConditionTester.vhd:40]
+INFO: [Synth 8-256] done synthesizing module 'ConditionTester' (32#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ConditionTester.vhd:40]
 INFO: [Synth 8-638] synthesizing module 'Shuffler' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Shuffler.vhd:40]
-INFO: [Synth 8-256] done synthesizing module 'Shuffler' (34#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Shuffler.vhd:40]
-INFO: [Synth 8-638] synthesizing module 'ControlUnit' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:70]
-WARNING: [Synth 8-614] signal 'halt' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:136]
-WARNING: [Synth 8-614] signal 'count' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:165]
-INFO: [Synth 8-256] done synthesizing module 'ControlUnit' (35#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:70]
-INFO: [Synth 8-256] done synthesizing module 'FRISC' (36#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd:49]
-INFO: [Synth 8-638] synthesizing module 'RAM' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:46]
+INFO: [Synth 8-256] done synthesizing module 'Shuffler' (33#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Shuffler.vhd:40]
+INFO: [Synth 8-638] synthesizing module 'ControlUnit' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:73]
+WARNING: [Synth 8-614] signal 'breq' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:143]
+WARNING: [Synth 8-614] signal 'halt' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:143]
+WARNING: [Synth 8-614] signal 'instructiontemp' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:181]
+WARNING: [Synth 8-614] signal 'count' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:181]
+INFO: [Synth 8-256] done synthesizing module 'ControlUnit' (34#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:73]
+INFO: [Synth 8-256] done synthesizing module 'FRISC' (35#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/FRISC.vhd:51]
+INFO: [Synth 8-638] synthesizing module 'RAM2' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:46]
 WARNING: [Synth 8-614] signal 'size' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:88]
 WARNING: [Synth 8-614] signal 'RAM' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:88]
 WARNING: [Synth 8-614] signal 'data' is read in the process but is not in the sensitivity list [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:88]
-INFO: [Synth 8-256] done synthesizing module 'RAM' (37#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:46]
-INFO: [Synth 8-256] done synthesizing module 'Complete' (38#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd:47]
+INFO: [Synth 8-256] done synthesizing module 'RAM2' (36#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:46]
+INFO: [Synth 8-256] done synthesizing module 'Complete2' (37#1) [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/Complete.vhd:49]
 ---------------------------------------------------------------------------------
-Finished Synthesize : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 7239 ; free virtual = 28273
+Finished Synthesize : Time (s): cpu = 00:00:06 ; elapsed = 00:00:07 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 10186 ; free virtual = 29446
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Constraint Validation : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 7251 ; free virtual = 28285
+Finished Constraint Validation : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2299.098 ; gain = 0.000 ; free physical = 10198 ; free virtual = 29458
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Loading Part and Timing Information
 ---------------------------------------------------------------------------------
 Loading part: xc7k70tfbv676-1
----------------------------------------------------------------------------------
 INFO: [Device 21-403] Loading part xc7k70tfbv676-1
-Finished Loading Part and Timing Information : Time (s): cpu = 00:00:08 ; elapsed = 00:00:09 . Memory (MB): peak = 2307.023 ; gain = 7.926 ; free physical = 7250 ; free virtual = 28283
+---------------------------------------------------------------------------------
+Finished Loading Part and Timing Information : Time (s): cpu = 00:00:07 ; elapsed = 00:00:08 . Memory (MB): peak = 2307.023 ; gain = 7.926 ; free physical = 10198 ; free virtual = 29458
 ---------------------------------------------------------------------------------
 WARNING: [Synth 8-327] inferring latch for variable 'q_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/flatEdgeRegister.vhd:46]
-WARNING: [Synth 8-327] inferring latch for variable 'opbpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:117]
-WARNING: [Synth 8-327] inferring latch for variable 'size_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:180]
-WARNING: [Synth 8-327] inferring latch for variable 'halt_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:1807]
-WARNING: [Synth 8-327] inferring latch for variable 'regAreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:111]
-WARNING: [Synth 8-327] inferring latch for variable 'regBreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:112]
-WARNING: [Synth 8-327] inferring latch for variable 'regRreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:112]
-WARNING: [Synth 8-327] inferring latch for variable 'instructionwrite_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:184]
-WARNING: [Synth 8-327] inferring latch for variable 'read_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:183]
-WARNING: [Synth 8-327] inferring latch for variable 'write_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:388]
-WARNING: [Synth 8-327] inferring latch for variable 'reginreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:117]
-WARNING: [Synth 8-327] inferring latch for variable 'opcodereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:117]
-WARNING: [Synth 8-327] inferring latch for variable 'pcincreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:117]
-WARNING: [Synth 8-327] inferring latch for variable 'pcpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:117]
-WARNING: [Synth 8-327] inferring latch for variable 'drpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:118]
-WARNING: [Synth 8-327] inferring latch for variable 'arpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:118]
-WARNING: [Synth 8-327] inferring latch for variable 'pcdecreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:118]
-WARNING: [Synth 8-327] inferring latch for variable 'statusregwritereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:118]
-WARNING: [Synth 8-327] inferring latch for variable 'statusregreadreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
-WARNING: [Synth 8-327] inferring latch for variable 'writeenablereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
-WARNING: [Synth 8-327] inferring latch for variable 'statuswriteenablereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
-WARNING: [Synth 8-327] inferring latch for variable 'conditionreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
-WARNING: [Synth 8-327] inferring latch for variable 'gieselectreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:120]
-WARNING: [Synth 8-327] inferring latch for variable 'count_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:151]
+WARNING: [Synth 8-327] inferring latch for variable 'opbpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:124]
+WARNING: [Synth 8-327] inferring latch for variable 'drenable_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:197]
+WARNING: [Synth 8-327] inferring latch for variable 'size_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:196]
+WARNING: [Synth 8-327] inferring latch for variable 'instructiontemp_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:141]
+WARNING: [Synth 8-327] inferring latch for variable 'IIF_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:142]
+WARNING: [Synth 8-327] inferring latch for variable 'regAreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:118]
+WARNING: [Synth 8-327] inferring latch for variable 'regBreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
+WARNING: [Synth 8-327] inferring latch for variable 'regRreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:119]
+WARNING: [Synth 8-327] inferring latch for variable 'instructionwrite_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:202]
+WARNING: [Synth 8-327] inferring latch for variable 'read_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:201]
+WARNING: [Synth 8-327] inferring latch for variable 'write_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:200]
+WARNING: [Synth 8-327] inferring latch for variable 'reginreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:124]
+WARNING: [Synth 8-327] inferring latch for variable 'opcodereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:124]
+WARNING: [Synth 8-327] inferring latch for variable 'pcincreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:124]
+WARNING: [Synth 8-327] inferring latch for variable 'pcpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:124]
+WARNING: [Synth 8-327] inferring latch for variable 'drpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:125]
+WARNING: [Synth 8-327] inferring latch for variable 'arpickreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:125]
+WARNING: [Synth 8-327] inferring latch for variable 'pcdecreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:125]
+WARNING: [Synth 8-327] inferring latch for variable 'statusregwritereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:125]
+WARNING: [Synth 8-327] inferring latch for variable 'statusregreadreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:126]
+WARNING: [Synth 8-327] inferring latch for variable 'writeenablereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:126]
+WARNING: [Synth 8-327] inferring latch for variable 'statuswriteenablereg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:126]
+WARNING: [Synth 8-327] inferring latch for variable 'conditionreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:126]
+WARNING: [Synth 8-327] inferring latch for variable 'gieselectreg_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:127]
+WARNING: [Synth 8-327] inferring latch for variable 'halt_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:1959]
+WARNING: [Synth 8-327] inferring latch for variable 'count_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:262]
+WARNING: [Synth 8-327] inferring latch for variable 'iscontrol_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:1576]
 WARNING: [Synth 8-327] inferring latch for variable 'data_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
 WARNING: [Synth 8-327] inferring latch for variable 'waitsig_reg' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:92]
 WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[0]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
@@ -210,13 +214,9 @@ WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[66]' [/home/extra/X
 WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[67]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
 WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[68]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
 WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[69]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
-WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[70]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
-WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[71]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
-WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[72]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
-WARNING: [Synth 8-327] inferring latch for variable 'RAM_reg[73]' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/RAM.vhd:94]
 INFO: [Common 17-14] Message 'Synth 8-327' appears 100 times and further instances of the messages will be disabled. Use the Tcl command set_msg_config to change the current settings.
 ---------------------------------------------------------------------------------
-Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:30 ; elapsed = 00:00:30 . Memory (MB): peak = 2307.023 ; gain = 7.926 ; free physical = 6983 ; free virtual = 28027
+Finished RTL Optimization Phase 2 : Time (s): cpu = 00:00:22 ; elapsed = 00:00:22 . Memory (MB): peak = 2307.023 ; gain = 7.926 ; free physical = 9950 ; free virtual = 29212
 ---------------------------------------------------------------------------------
 INFO: [Synth 8-223] decloning instance 'FRISC/ALU/registry/registers[0].c_i' (fallingEdgeRegister) to 'FRISC/ALU/registry/Reg0'
 INFO: [Synth 8-223] decloning instance 'FRISC/ALU/registry/registers[1].c_i' (fallingEdgeRegister) to 'FRISC/ALU/registry/Reg1'
@@ -264,29 +264,33 @@ Detailed RTL Component Info :
 +---XORs : 
 	   2 Input      1 Bit         XORs := 260   
 +---Registers : 
-	               32 Bit    Registers := 16    
+	               32 Bit    Registers := 10    
 	                3 Bit    Registers := 1     
+	                1 Bit    Registers := 1     
 +---Muxes : 
+	   2 Input   32 Bit        Muxes := 2     
 	   3 Input   32 Bit        Muxes := 2     
 	   2 Input    8 Bit        Muxes := 447   
 	   3 Input    8 Bit        Muxes := 180   
+	   3 Input    6 Bit        Muxes := 1     
 	   2 Input    4 Bit        Muxes := 3     
-	  54 Input    4 Bit        Muxes := 1     
+	  55 Input    4 Bit        Muxes := 1     
+	   3 Input    4 Bit        Muxes := 1     
 	   2 Input    3 Bit        Muxes := 7     
-	  54 Input    3 Bit        Muxes := 4     
-	   4 Input    3 Bit        Muxes := 1     
-	   8 Input    3 Bit        Muxes := 1     
+	  55 Input    3 Bit        Muxes := 5     
 	   6 Input    3 Bit        Muxes := 1     
-	   2 Input    2 Bit        Muxes := 3     
+	   4 Input    3 Bit        Muxes := 1     
+	   2 Input    2 Bit        Muxes := 2     
 	   6 Input    2 Bit        Muxes := 1     
-	  54 Input    2 Bit        Muxes := 7     
-	   3 Input    2 Bit        Muxes := 5     
-	   5 Input    2 Bit        Muxes := 1     
-	   2 Input    1 Bit        Muxes := 465   
-	   3 Input    1 Bit        Muxes := 68    
-	  54 Input    1 Bit        Muxes := 13    
-	   5 Input    1 Bit        Muxes := 136   
-	   4 Input    1 Bit        Muxes := 8     
+	   3 Input    2 Bit        Muxes := 8     
+	  55 Input    2 Bit        Muxes := 5     
+	   4 Input    2 Bit        Muxes := 1     
+	   2 Input    1 Bit        Muxes := 461   
+	   3 Input    1 Bit        Muxes := 71    
+	  55 Input    1 Bit        Muxes := 16    
+	   4 Input    1 Bit        Muxes := 7     
+	   5 Input    1 Bit        Muxes := 139   
+	  57 Input    1 Bit        Muxes := 2     
 ---------------------------------------------------------------------------------
 Finished RTL Component Statistics 
 ---------------------------------------------------------------------------------
@@ -303,8 +307,14 @@ No constraint files found.
 ---------------------------------------------------------------------------------
 Start Cross Boundary and Area Optimization
 ---------------------------------------------------------------------------------
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'FRISC/CU/count_reg__0/Q' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:148]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:148]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:148]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 1st driver pin 'FRISC/CU/iscontrol_reg__0/Q' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:147]
+CRITICAL WARNING: [Synth 8-6859] multi-driven net on pin Q with 2nd driver pin 'GND' [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:147]
+CRITICAL WARNING: [Synth 8-6858] multi-driven net Q is connected to at least one constant driver which has been preserved, other driver is ignored [/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.srcs/sources_1/new/ControlUnit.vhd:147]
 ---------------------------------------------------------------------------------
-Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:30 ; elapsed = 00:01:34 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6849 ; free virtual = 27930
+Finished Cross Boundary and Area Optimization : Time (s): cpu = 00:01:07 ; elapsed = 00:01:11 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9822 ; free virtual = 29118
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start ROM, RAM, DSP, Shift Register and Retiming Reporting
@@ -314,9 +324,7 @@ ROM: Preliminary Mapping	Report
 +------------+------------+---------------+----------------+
 |Module Name | RTL Object | Depth x Width | Implemented As | 
 +------------+------------+---------------+----------------+
-|ControlUnit | regBreg    | 64x1          | LUT            | 
 |ControlUnit | count      | 64x1          | LUT            | 
-|ControlUnit | regBreg    | 64x1          | LUT            | 
 |ControlUnit | count      | 64x1          | LUT            | 
 +------------+------------+---------------+----------------+
 
@@ -328,13 +336,13 @@ No constraint files found.
 Start Timing Optimization
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Timing Optimization : Time (s): cpu = 00:01:30 ; elapsed = 00:01:34 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6849 ; free virtual = 27930
+Finished Timing Optimization : Time (s): cpu = 00:01:07 ; elapsed = 00:01:11 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9822 ; free virtual = 29119
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Technology Mapping
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Technology Mapping : Time (s): cpu = 00:01:33 ; elapsed = 00:01:37 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6861 ; free virtual = 27934
+Finished Technology Mapping : Time (s): cpu = 00:01:09 ; elapsed = 00:01:13 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start IO Insertion
@@ -352,37 +360,37 @@ Start Final Netlist Cleanup
 Finished Final Netlist Cleanup
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished IO Insertion : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6856 ; free virtual = 27938
+Finished IO Insertion : Time (s): cpu = 00:01:12 ; elapsed = 00:01:15 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Instances
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Instances : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6856 ; free virtual = 27938
+Finished Renaming Generated Instances : Time (s): cpu = 00:01:12 ; elapsed = 00:01:15 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Rebuilding User Hierarchy
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6856 ; free virtual = 27937
+Finished Rebuilding User Hierarchy : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Ports
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Ports : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6856 ; free virtual = 27937
+Finished Renaming Generated Ports : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Handling Custom Attributes
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Handling Custom Attributes : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6855 ; free virtual = 27936
+Finished Handling Custom Attributes : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Renaming Generated Nets
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
-Finished Renaming Generated Nets : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6855 ; free virtual = 27936
+Finished Renaming Generated Nets : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
 ---------------------------------------------------------------------------------
 Start Writing Synthesis Report
@@ -399,114 +407,176 @@ Report Cell Usage:
 |      |Cell  |Count |
 +------+------+------+
 |1     |BUFG  |     2|
-|2     |LUT1  |    34|
-|3     |LUT2  |   147|
-|4     |LUT3  |   362|
-|5     |LUT4  |   314|
-|6     |LUT5  |   308|
-|7     |LUT6  |  1627|
-|8     |MUXF7 |   128|
+|2     |LUT1  |    32|
+|3     |LUT2  |   134|
+|4     |LUT3  |   687|
+|5     |LUT4  |   454|
+|6     |LUT5  |   388|
+|7     |LUT6  |  1028|
+|8     |MUXF7 |    33|
 |9     |FDCE  |     1|
 |10    |FDPE  |     2|
-|11    |FDRE  |   425|
-|12    |FDSE  |    13|
-|13    |LD    |  1075|
-|14    |LDC   |    18|
+|11    |FDRE  |   317|
+|12    |FDSE  |     1|
+|13    |LD    |  1114|
+|14    |LDC   |     3|
 |15    |LDP   |     2|
-|16    |IBUF  |     1|
-|17    |OBUF  |   133|
+|16    |IBUF  |     2|
+|17    |OBUF  |   134|
 |18    |OBUFT |    32|
 +------+------+------+
 
 Report Instance Areas: 
-+------+----------------------------+-----------------------+------+
-|      |Instance                    |Module                 |Cells |
-+------+----------------------------+-----------------------+------+
-|1     |top                         |                       |  4624|
-|2     |  FRISC                     |FRISC                  |  3016|
-|3     |    ALU                     |ALU_full               |  1238|
-|4     |      ArithmeticLogicUnit   |ArithmeticLogicUnit    |   718|
-|5     |        RegisterA           |risingEdgeRegister_43  |   139|
-|6     |        RegisterB           |risingEdgeRegister_44  |    84|
-|7     |        RegisterOP          |risingEdgeRegister_45  |   489|
-|8     |        barrelshifter       |BarrelShifter          |     6|
-|9     |          shift_highest_bit |circuitOR32            |     6|
-|10    |      registry              |registry               |   520|
-|11    |        bufferWriteRegister |risingEdgeRegister_34  |    14|
-|12    |        \registers[0].c_i   |fallingEdgeRegister    |    32|
-|13    |        \registers[1].c_i   |fallingEdgeRegister_35 |   158|
-|14    |        \registers[2].c_i   |fallingEdgeRegister_36 |    32|
-|15    |        \registers[3].c_i   |fallingEdgeRegister_37 |    32|
-|16    |        \registers[4].c_i   |fallingEdgeRegister_38 |    32|
-|17    |        \registers[5].c_i   |fallingEdgeRegister_39 |    96|
-|18    |        \registers[6].c_i   |fallingEdgeRegister_40 |    32|
-|19    |        \registers[7].c_i   |fallingEdgeRegister_41 |    32|
-|20    |        statusRegister      |fallingEdgeRegister_42 |    60|
-|21    |    CU                      |ControlUnit            |  1473|
-|22    |      constReg              |risingEdgeRegister_32  |    44|
-|23    |      controlSignalsReg     |risingEdgeRegister_33  |  1229|
-|24    |    PC                      |risingEdgeRegister     |    64|
-|25    |    PCDecrement             |adder                  |    28|
-|26    |    PCIncrement             |adder_0                |    30|
-|27    |    PCMUXCondition          |ConditionTester        |     4|
-|28    |    \PCMUX[0].M_i           |MUX8to1                |     3|
-|29    |    \PCMUX[10].M_i          |MUX8to1_1              |     2|
-|30    |    \PCMUX[11].M_i          |MUX8to1_2              |     2|
-|31    |    \PCMUX[12].M_i          |MUX8to1_3              |     2|
-|32    |    \PCMUX[13].M_i          |MUX8to1_4              |     2|
-|33    |    \PCMUX[14].M_i          |MUX8to1_5              |     2|
-|34    |    \PCMUX[15].M_i          |MUX8to1_6              |     2|
-|35    |    \PCMUX[16].M_i          |MUX8to1_7              |     2|
-|36    |    \PCMUX[17].M_i          |MUX8to1_8              |     2|
-|37    |    \PCMUX[18].M_i          |MUX8to1_9              |     2|
-|38    |    \PCMUX[19].M_i          |MUX8to1_10             |     3|
-|39    |    \PCMUX[1].M_i           |MUX8to1_11             |     2|
-|40    |    \PCMUX[20].M_i          |MUX8to1_12             |     3|
-|41    |    \PCMUX[21].M_i          |MUX8to1_13             |     2|
-|42    |    \PCMUX[22].M_i          |MUX8to1_14             |     2|
-|43    |    \PCMUX[23].M_i          |MUX8to1_15             |     3|
-|44    |    \PCMUX[24].M_i          |MUX8to1_16             |     3|
-|45    |    \PCMUX[25].M_i          |MUX8to1_17             |     2|
-|46    |    \PCMUX[26].M_i          |MUX8to1_18             |     2|
-|47    |    \PCMUX[27].M_i          |MUX8to1_19             |     3|
-|48    |    \PCMUX[28].M_i          |MUX8to1_20             |     3|
-|49    |    \PCMUX[29].M_i          |MUX8to1_21             |     3|
-|50    |    \PCMUX[2].M_i           |MUX8to1_22             |     2|
-|51    |    \PCMUX[30].M_i          |MUX8to1_23             |     3|
-|52    |    \PCMUX[31].M_i          |MUX8to1_24             |     3|
-|53    |    \PCMUX[3].M_i           |MUX8to1_25             |     2|
-|54    |    \PCMUX[4].M_i           |MUX8to1_26             |     2|
-|55    |    \PCMUX[5].M_i           |MUX8to1_27             |     2|
-|56    |    \PCMUX[6].M_i           |MUX8to1_28             |     2|
-|57    |    \PCMUX[7].M_i           |MUX8to1_29             |     2|
-|58    |    \PCMUX[8].M_i           |MUX8to1_30             |     2|
-|59    |    \PCMUX[9].M_i           |MUX8to1_31             |     2|
-|60    |    instructionRegister     |flatEdgeRegister       |   104|
-|61    |  RAM                       |RAM                    |  1440|
-+------+----------------------------+-----------------------+------+
++------+--------------------------------+------------------------+------+
+|      |Instance                        |Module                  |Cells |
++------+--------------------------------+------------------------+------+
+|1     |top                             |                        |  4366|
+|2     |  FRISC                         |FRISC                   |  2820|
+|3     |    \dataRegMUX[0].M_i          |MUX4to1_33              |     1|
+|4     |      c5                        |circuitOR4_95           |     1|
+|5     |    \dataRegMUX[10].M_i         |MUX4to1_34              |     1|
+|6     |      c5                        |circuitOR4_94           |     1|
+|7     |    \dataRegMUX[11].M_i         |MUX4to1_35              |     1|
+|8     |      c5                        |circuitOR4_93           |     1|
+|9     |    \dataRegMUX[12].M_i         |MUX4to1_36              |     1|
+|10    |      c5                        |circuitOR4_92           |     1|
+|11    |    \dataRegMUX[13].M_i         |MUX4to1_37              |     1|
+|12    |      c5                        |circuitOR4_91           |     1|
+|13    |    \dataRegMUX[14].M_i         |MUX4to1_38              |     1|
+|14    |      c5                        |circuitOR4_90           |     1|
+|15    |    \dataRegMUX[15].M_i         |MUX4to1_39              |     1|
+|16    |      c5                        |circuitOR4_89           |     1|
+|17    |    \dataRegMUX[16].M_i         |MUX4to1_40              |     1|
+|18    |      c5                        |circuitOR4_88           |     1|
+|19    |    \dataRegMUX[17].M_i         |MUX4to1_41              |     1|
+|20    |      c5                        |circuitOR4_87           |     1|
+|21    |    \dataRegMUX[18].M_i         |MUX4to1_42              |     1|
+|22    |      c5                        |circuitOR4_86           |     1|
+|23    |    \dataRegMUX[19].M_i         |MUX4to1_43              |     1|
+|24    |      c5                        |circuitOR4_85           |     1|
+|25    |    \dataRegMUX[1].M_i          |MUX4to1_44              |     1|
+|26    |      c5                        |circuitOR4_84           |     1|
+|27    |    \dataRegMUX[20].M_i         |MUX4to1_45              |     1|
+|28    |      c5                        |circuitOR4_83           |     1|
+|29    |    \dataRegMUX[21].M_i         |MUX4to1_46              |     1|
+|30    |      c5                        |circuitOR4_82           |     1|
+|31    |    \dataRegMUX[22].M_i         |MUX4to1_47              |     1|
+|32    |      c5                        |circuitOR4_81           |     1|
+|33    |    \dataRegMUX[23].M_i         |MUX4to1_48              |     1|
+|34    |      c5                        |circuitOR4_80           |     1|
+|35    |    \dataRegMUX[24].M_i         |MUX4to1_49              |     1|
+|36    |      c5                        |circuitOR4_79           |     1|
+|37    |    \dataRegMUX[25].M_i         |MUX4to1_50              |     1|
+|38    |      c5                        |circuitOR4_78           |     1|
+|39    |    \dataRegMUX[26].M_i         |MUX4to1_51              |     1|
+|40    |      c5                        |circuitOR4_77           |     1|
+|41    |    \dataRegMUX[27].M_i         |MUX4to1_52              |     1|
+|42    |      c5                        |circuitOR4_76           |     1|
+|43    |    \dataRegMUX[28].M_i         |MUX4to1_53              |     1|
+|44    |      c5                        |circuitOR4_75           |     1|
+|45    |    \dataRegMUX[29].M_i         |MUX4to1_54              |     1|
+|46    |      c5                        |circuitOR4_74           |     1|
+|47    |    \dataRegMUX[2].M_i          |MUX4to1_55              |     1|
+|48    |      c5                        |circuitOR4_73           |     1|
+|49    |    \dataRegMUX[30].M_i         |MUX4to1_56              |     1|
+|50    |      c5                        |circuitOR4_72           |     1|
+|51    |    \dataRegMUX[31].M_i         |MUX4to1_57              |     1|
+|52    |      c5                        |circuitOR4_71           |     1|
+|53    |    \dataRegMUX[3].M_i          |MUX4to1_58              |     1|
+|54    |      c5                        |circuitOR4_70           |     1|
+|55    |    \dataRegMUX[4].M_i          |MUX4to1_59              |     1|
+|56    |      c5                        |circuitOR4_69           |     1|
+|57    |    \dataRegMUX[5].M_i          |MUX4to1_60              |     1|
+|58    |      c5                        |circuitOR4_68           |     1|
+|59    |    \dataRegMUX[6].M_i          |MUX4to1_61              |     1|
+|60    |      c5                        |circuitOR4_67           |     1|
+|61    |    \dataRegMUX[7].M_i          |MUX4to1_62              |     1|
+|62    |      c5                        |circuitOR4_66           |     1|
+|63    |    \dataRegMUX[8].M_i          |MUX4to1_63              |     1|
+|64    |      c5                        |circuitOR4_65           |     1|
+|65    |    \dataRegMUX[9].M_i          |MUX4to1_64              |     1|
+|66    |      c5                        |circuitOR4              |     1|
+|67    |    ALU                         |ALU_full                |   451|
+|68    |      ArithmeticLogicUnit       |ArithmeticLogicUnit     |     6|
+|69    |        barrelshifter           |BarrelShifter           |     6|
+|70    |          shift_highest_bit     |circuitOR32             |     6|
+|71    |      registry                  |registry                |   445|
+|72    |        \registers[0].c_i       |fallingEdgeRegister_98  |    32|
+|73    |        \registers[1].c_i       |fallingEdgeRegister_99  |   128|
+|74    |        \registers[2].c_i       |fallingEdgeRegister_100 |    32|
+|75    |        \registers[3].c_i       |fallingEdgeRegister_101 |    32|
+|76    |        \registers[4].c_i       |fallingEdgeRegister_102 |    32|
+|77    |        \registers[5].c_i       |fallingEdgeRegister_103 |    96|
+|78    |        \registers[6].c_i       |fallingEdgeRegister_104 |    32|
+|79    |        \registers[7].c_i       |fallingEdgeRegister_105 |    32|
+|80    |        statusRegister          |fallingEdgeRegister_106 |    29|
+|81    |    CU                          |ControlUnit             |  2177|
+|82    |    PC                          |fallingEdgeRegister     |    33|
+|83    |    PCDecrement                 |adder                   |    28|
+|84    |    PCIncrement                 |adder_0                 |    21|
+|85    |    \PCMUX[0].M_i               |MUX8to1                 |     1|
+|86    |    \PCMUX[10].M_i              |MUX8to1_1               |     1|
+|87    |    \PCMUX[11].M_i              |MUX8to1_2               |     1|
+|88    |    \PCMUX[12].M_i              |MUX8to1_3               |     1|
+|89    |    \PCMUX[13].M_i              |MUX8to1_4               |     1|
+|90    |    \PCMUX[14].M_i              |MUX8to1_5               |     1|
+|91    |    \PCMUX[15].M_i              |MUX8to1_6               |     1|
+|92    |    \PCMUX[16].M_i              |MUX8to1_7               |     1|
+|93    |    \PCMUX[17].M_i              |MUX8to1_8               |     1|
+|94    |    \PCMUX[18].M_i              |MUX8to1_9               |     1|
+|95    |    \PCMUX[19].M_i              |MUX8to1_10              |     1|
+|96    |    \PCMUX[1].M_i               |MUX8to1_11              |     1|
+|97    |    \PCMUX[20].M_i              |MUX8to1_12              |     1|
+|98    |    \PCMUX[21].M_i              |MUX8to1_13              |     1|
+|99    |    \PCMUX[22].M_i              |MUX8to1_14              |     1|
+|100   |    \PCMUX[23].M_i              |MUX8to1_15              |     1|
+|101   |    \PCMUX[24].M_i              |MUX8to1_16              |     1|
+|102   |    \PCMUX[25].M_i              |MUX8to1_17              |     1|
+|103   |    \PCMUX[26].M_i              |MUX8to1_18              |     1|
+|104   |    \PCMUX[27].M_i              |MUX8to1_19              |     1|
+|105   |    \PCMUX[28].M_i              |MUX8to1_20              |     1|
+|106   |    \PCMUX[29].M_i              |MUX8to1_21              |     1|
+|107   |    \PCMUX[2].M_i               |MUX8to1_22              |     1|
+|108   |    \PCMUX[30].M_i              |MUX8to1_23              |     1|
+|109   |    \PCMUX[31].M_i              |MUX8to1_24              |     1|
+|110   |    \PCMUX[3].M_i               |MUX8to1_25              |     1|
+|111   |    \PCMUX[4].M_i               |MUX8to1_26              |     1|
+|112   |    \PCMUX[5].M_i               |MUX8to1_27              |     1|
+|113   |    \PCMUX[6].M_i               |MUX8to1_28              |     1|
+|114   |    \PCMUX[7].M_i               |MUX8to1_29              |     1|
+|115   |    \PCMUX[8].M_i               |MUX8to1_30              |     1|
+|116   |    \PCMUX[9].M_i               |MUX8to1_31              |     1|
+|117   |    \addressRegisterMUX[2].M_i  |MUX4to1                 |     5|
+|118   |      c5                        |circuitOR4_97           |     5|
+|119   |    \addressRegisterMUX[3].M_i  |MUX4to1_32              |     6|
+|120   |      c5                        |circuitOR4_96           |     6|
+|121   |    instructionRegister         |flatEdgeRegister        |    35|
+|122   |  RAM                           |RAM2                    |  1376|
++------+--------------------------------+------------------------+------+
 ---------------------------------------------------------------------------------
-Finished Writing Synthesis Report : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6855 ; free virtual = 27937
+Finished Writing Synthesis Report : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9828 ; free virtual = 29124
 ---------------------------------------------------------------------------------
-Synthesis finished with 0 errors, 0 critical warnings and 159 warnings.
-Synthesis Optimization Runtime : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.023 ; gain = 20.926 ; free physical = 6857 ; free virtual = 27938
-Synthesis Optimization Complete : Time (s): cpu = 00:01:36 ; elapsed = 00:01:40 . Memory (MB): peak = 2320.031 ; gain = 20.926 ; free physical = 6857 ; free virtual = 27938
+Synthesis finished with 0 errors, 6 critical warnings and 165 warnings.
+Synthesis Optimization Runtime : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.023 ; gain = 18.926 ; free physical = 9829 ; free virtual = 29125
+Synthesis Optimization Complete : Time (s): cpu = 00:01:12 ; elapsed = 00:01:16 . Memory (MB): peak = 2318.031 ; gain = 18.926 ; free physical = 9829 ; free virtual = 29125
 INFO: [Project 1-571] Translating synthesized netlist
-Netlist sorting complete. Time (s): cpu = 00:00:00.05 ; elapsed = 00:00:00.05 . Memory (MB): peak = 2320.031 ; gain = 0.000 ; free physical = 6938 ; free virtual = 28020
-INFO: [Netlist 29-17] Analyzing 1223 Unisim elements for replacement
+Netlist sorting complete. Time (s): cpu = 00:00:00.04 ; elapsed = 00:00:00.04 . Memory (MB): peak = 2318.031 ; gain = 0.000 ; free physical = 9911 ; free virtual = 29208
+INFO: [Netlist 29-17] Analyzing 1152 Unisim elements for replacement
 INFO: [Netlist 29-28] Unisim Transformation completed in 0 CPU seconds
 INFO: [Project 1-570] Preparing netlist for logic optimization
 INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
-Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2376.051 ; gain = 0.000 ; free physical = 6899 ; free virtual = 27979
+Netlist sorting complete. Time (s): cpu = 00:00:00 ; elapsed = 00:00:00 . Memory (MB): peak = 2374.051 ; gain = 0.000 ; free physical = 9869 ; free virtual = 29165
 INFO: [Project 1-111] Unisim Transformation Summary:
-  A total of 1095 instances were transformed.
-  LD => LDCE: 1075 instances
-  LDC => LDCE: 18 instances
+  A total of 1119 instances were transformed.
+  LD => LDCE: 1114 instances
+  LDC => LDCE: 3 instances
   LDP => LDPE: 2 instances
 
 INFO: [Common 17-83] Releasing license: Synthesis
-127 Infos, 105 Warnings, 0 Critical Warnings and 0 Errors encountered.
+125 Infos, 107 Warnings, 6 Critical Warnings and 0 Errors encountered.
 synth_design completed successfully
-synth_design: Time (s): cpu = 00:01:45 ; elapsed = 00:01:44 . Memory (MB): peak = 2376.051 ; gain = 77.031 ; free physical = 7045 ; free virtual = 28127
-INFO: [Common 17-1381] The checkpoint '/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1/Complete.dcp' has been generated.
-INFO: [runtcl-4] Executing : report_utilization -file Complete_utilization_synth.rpt -pb Complete_utilization_synth.pb
-INFO: [Common 17-206] Exiting Vivado at Thu Jun 10 17:13:09 2021...
+synth_design: Time (s): cpu = 00:01:19 ; elapsed = 00:01:18 . Memory (MB): peak = 2374.051 ; gain = 75.031 ; free physical = 10017 ; free virtual = 29313
+INFO: [runtcl-6] Synthesis results are not added to the cache due to CRITICAL_WARNING
+INFO: [Common 17-1381] The checkpoint '/home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1/Complete2.dcp' has been generated.
+INFO: [runtcl-4] Executing : report_utilization -file Complete2_utilization_synth.rpt -pb Complete2_utilization_synth.pb
+INFO: [Common 17-206] Exiting Vivado at Fri Jun 11 23:38:06 2021...

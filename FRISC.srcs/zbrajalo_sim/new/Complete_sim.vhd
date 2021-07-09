@@ -6,12 +6,12 @@ library IEEE;
 use IEEE.Std_logic_1164.all;
 use IEEE.Numeric_Std.all;
 
-entity Complete_tb is
+entity Complete1_tb is
 end;
 
-architecture bench of Complete_tb is
+architecture bench of Complete1_tb is
 
-  component Complete
+  component Complete1
       Port ( clk : in STD_LOGIC;
              addressout : out STD_LOGIC_VECTOR (31 downto 0);
              dataout : out STD_LOGIC_VECTOR (31 downto 0);
@@ -19,9 +19,7 @@ architecture bench of Complete_tb is
              writeout: out STD_LOGIC;
              waitsigout: out STD_LOGIC;
              sizeout: out STD_LOGIC_VECTOR (1 downto 0);
-             instruction: out STD_LOGIC_VECTOR (31 downto 0);
-             regenable: out STD_LOGIC_VECTOR (31 downto 0);
-             regin: out STD_LOGIC_VECTOR (31 downto 0));
+             instruction: out STD_LOGIC_VECTOR (31 downto 0));
   end component;
 
   signal clk: STD_LOGIC := '1';
@@ -32,31 +30,25 @@ architecture bench of Complete_tb is
   signal waitsigout: STD_LOGIC;
   signal sizeout: STD_LOGIC_VECTOR (1 downto 0);
   signal instruction: STD_LOGIC_VECTOR (31 downto 0);
-  signal regenable: STD_LOGIC_VECTOR (31 downto 0);
-  signal regin: STD_LOGIC_VECTOR (31 downto 0);
 
 begin
 
-  uut: Complete port map ( clk        => clk,
+  uut: Complete1 port map ( clk        => clk,
                            addressout => addressout,
                            dataout    => dataout,
                            readout    => readout,
                            writeout   => writeout,
                            waitsigout => waitsigout,
                            sizeout => sizeout,
-                           instruction => instruction,
-                           regenable => regenable,
-                           regin => regin);
+                           instruction => instruction);
 
   stimulus: process
   begin
-    wait for 5 ns;  
-    -- Put initialisation code here
-    -- Put test bench stimulus code here
+    wait for 10 ns;  
     clk <= '0';
     wait for 10 ns;
     clk <= '1';
-    wait for 5 ns;
+    --wait for 5 ns;
     
   end process;
 

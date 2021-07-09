@@ -60,18 +60,20 @@ architecture Behavioral of ALU_full is
     signal flagsTemp: STD_LOGIC_VECTOR (31 downto 0);
     signal carry: STD_LOGIC;
     signal ALUresult: STD_LOGIC_VECTOR (31 downto 0);
+    constant test: STD_LOGIC_VECTOR := "01010101010101010101010101010101";
 
 begin
     registry: entity work.registry port map (registerA => RegA, registerB => RegB, registerIN => RegistryIN,
                         writeRegister => RegWrite, RawSelection => ConstSelection, rawData => Const, OpASelection => statusRegRead, 
                         statusInSelection => statusRegWrite, clk => clk, writeEnable => writeEnable, statusWriteEnable => statusWriteEnable, outA => operandA,
-                        outB => operandB, flagsIN => flagsIN, statusFlags => flagsTemp, regBData => RegBOut);
+                        outB => operandB, flagsIN => flagsIN, statusFlags => flagsTemp, regBData => RegBOut, r1_test => A_out, r2_test => B_out
+                        );
     
     carry <= flagsTemp(1);
     statusreg <= flagsTemp;
-    A_out <= operandA;
-    B_out <= operandB;
+    --A_out <= operandA;
+    --B_out <= operandB;
     flagsOUT(31 downto 4) <= flagsTemp (31 downto 4);
-    ArithmeticLogicUnit: entity work.ArithmeticLogicUnit port map (operandA => operandA, operandB => operandB,
+    ArithmeticLogicUnit: entity work.ArithmeticLogicUnit port map (operandA => operandA, operandB => operandB, --A_out => A_out, B_out => B_out,
                        carryIN => carry, operationSelect => instruction, clk => clk, result => result, flags => flagsOUT(3 downto 0));
 end Behavioral;

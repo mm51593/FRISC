@@ -1,0 +1,12 @@
+#-----------------------------------------------------------
+# Webtalk v2020.2 (64-bit)
+# SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
+# IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
+# Start of session at: Fri Jun 11 10:08:19 2021
+# Process ID: 164107
+# Current directory: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.sim/zbrajalo_sim/behav/xsim
+# Command line: wbtcv -mode batch -source /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.sim/zbrajalo_sim/behav/xsim/xsim.dir/Complete4_tb_behav/webtalk/xsim_webtalk.tcl -notrace
+# Log file: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.sim/zbrajalo_sim/behav/xsim/webtalk.log
+# Journal file: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.sim/zbrajalo_sim/behav/xsim/webtalk.jou
+#-----------------------------------------------------------
+source /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.sim/zbrajalo_sim/behav/xsim/xsim.dir/Complete4_tb_behav/webtalk/xsim_webtalk.tcl -notrace

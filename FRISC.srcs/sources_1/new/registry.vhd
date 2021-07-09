@@ -88,8 +88,8 @@ begin
     Reg6: entity work.fallingEdgeRegister port map(d => registerIN, clk => clk, enable => regEnable(6), q => R6);
     Reg7: entity work.fallingEdgeRegister port map(d => registerIN, clk => clk, enable => regEnable(7), q => R7);
     
-    r1_test(1 downto 0) <= rawSelection;
-    r2_test <= rawData;
+    r1_test <= regwritebuffer;
+    r2_test <= R7;
     r3_test <= registerIn;
     
     getOutAReg: for i in 0 to N - 1 generate
@@ -129,8 +129,8 @@ begin
     --getOutA: entity work.fallingEdgeRegister port map(d => outAReg, clk => clk, enable => '1', q => outA);
     --getOutB: entity work.fallingEdgeRegister port map(d => outBReg, clk => clk, enable => '1', q => outB);
     
-    bufferWriteRegister: entity work.risingEdgeRegister port map(d(2 downto 0) => writeRegister, d(3) => writeEnable, d(4) => statusWriteEnable, d(5) => statusInselection,
-                            d(31 downto 6) => "00000000000000000000000000", clk => clk, enable => '1', q => regWriteBuffer);
+    bufferWriteRegister: entity work.flatEdgeRegister port map(d(2 downto 0) => writeRegister, d(3) => writeEnable, d(4) => statusWriteEnable, d(5) => statusInselection,
+                            d(31 downto 6) => "00000000000000000000000000", enable => '1', q => regWriteBuffer);
                               
     regWrite: entity work.Decoder3to8 port map(input => regWriteBuffer(2 downto 0), output => regEnable, enable => regWriteBuffer(3));
     

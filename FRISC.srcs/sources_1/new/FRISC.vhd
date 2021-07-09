@@ -35,11 +35,13 @@ entity FRISC is
     Port ( clk : in STD_LOGIC;
            waitsig: in STD_LOGIC;
            interrupt: in STD_LOGIC_VECTOR (1 downto 0);
+           breq: in STD_LOGIC;
            data : inout STD_LOGIC_VECTOR (31 downto 0);
            address: out STD_LOGIC_VECTOR (31 downto 0);
            sizeout : out STD_LOGIC_VECTOR (1 downto 0);
            read: out STD_LOGIC;
            write: out STD_LOGIC;
+           back: out STD_LOGIC;
            PCtest: out STD_LOGIC_VECTOR (31 downto 0);
            instructionwriteout: out STD_LOGIC;
            A_out : out STD_LOGIC_VECTOR (31 downto 0);
@@ -62,7 +64,7 @@ architecture Behavioral of FRISC is
     signal regBout : STD_LOGIC_VECTOR (31 downto 0);
     signal ALUresult : STD_LOGIC_VECTOR (31 downto 0);
     signal condition: STD_LOGIC_VECTOR (3 downto 0);
-    signal size: STD_LOGIC_VECTOR (1 downto 0);
+    signal size: STD_LOGIC_VECTOR (1 downto 0) := "00";
     
     signal dataRegMUXOut : STD_LOGIC_VECTOR (31 downto 0);
     signal dataRegOut: STD_LOGIC_VECTOR (31 downto 0);
@@ -83,7 +85,7 @@ architecture Behavioral of FRISC is
     signal PCIncrementPickFinal: STD_LOGIC;
     signal PCIncrementMUXOut: STD_LOGIC_VECTOR (31 downto 0);
     signal PCIncremented: STD_LOGIC_VECTOR (31 downto 0);
-    signal PCInMUX: STD_LOGIC_VECTOR (31 downto 0);
+    signal PCInMUX: STD_LOGIC_VECTOR (31 downto 0) := "00000000000000000000000000000000";
     signal PCOut: STD_LOGIC_VECTOR (31 downto 0);
     
     signal PCDecrementMUXOut: STD_LOGIC_VECTOR (31 downto 0);
@@ -95,10 +97,11 @@ architecture Behavioral of FRISC is
     
     signal reginpick: STD_LOGIC_VECTOR (1 downto 0);
     signal drpick: STD_LOGIC_VECTOR (1 downto 0);
+    signal drenable: STD_LOGIC;
     signal pcinc: STD_LOGIC;
     signal pcpick: STD_LOGIC_VECTOR (2 downto 0) := "101";
     signal pcdec: STD_LOGIC;
-    signal arpick: STD_LOGIC_VECTOR (1 downto 0);
+    signal arpick: STD_LOGIC_VECTOR (1 downto 0) := "00";
     signal gieselect: STD_LOGIC;
     
     constant N : integer := 32;
@@ -110,11 +113,13 @@ begin
     ALU: entity work.ALU_FULL port map(RegA => regAPick, RegB => regBPick, RegistryIN => registryMUXOut, RegWrite => regwritepick, Const => extenderOut,
             statusregwrite => regtostatusenable, statusregread => operandApick, 
             constSelection => operandBpick, instruction => opsel, writeEnable => regwriteenable, statusWriteEnable => statuswriteenable,
-            clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout,
-            A_out => A_out);
-
-    B_out <= ALUresult;
-
+            clk => clk, flagsIN => statusregin, flagsOUT => aluflagsout, RegBOut => regBout, result => ALUresult, statusreg => statusregout
+            --, A_out => A_out
+            , B_out => B_out
+            );
+            
+    A_out(2 downto 0) <= pcpick;
+    
     negGIE: entity work.circuitNOT port map(I => aluflagsout(4), O => GIEnegate);
     GIEMUX: entity work.MUX2to1 port map(I1 => aluflagsout(4), I2 => GIEnegate, selection => gieselect, output => statusregin(4));
     
@@ -128,7 +133,7 @@ begin
         M_i: entity work.MUX4to1 port map(input(0) => PCDecremented(i), input(1) => data(i), input(2) => regBout(i), input(3) => '0', selection => drpick, output => dataRegMUXOut(i));
     end generate;
     
-    dataRegister: entity work.flatEdgeRegister port map(d => dataRegMUXOut, enable => '1', q => dataRegOut);
+    dataRegister: entity work.flatEdgeRegister port map(d => dataRegMUXOut, enable => drenable, q => dataRegOut);
     
     instructionRegister: entity work.flatEdgeRegister port map(d => data, enable => instructionwrite, q => instruction);
     --instructionwriteout <= instructionwrite;
@@ -153,7 +158,7 @@ begin
                 input(4) => NMIaddress(i), input(5) => PCOut(i), input(7 downto 6) => "00", selection => pcpick, output => PCInMUX(i));
     end generate;
                 
-    PC: entity work.risingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
+    PC: entity work.fallingEdgeRegister port map(d => PCInMUX, clk => clk, enable => '1', q => PCOut);
     
     PCDecrementMUX: for i in 0 to N - 1 generate
         M_i: entity work.MUX2to1 port map(I1 => '1', I2 => incrementComplement(i), selection => pcdec, output => PCDecrementMUXOut(i));
@@ -172,11 +177,11 @@ begin
     --addressRegister: entity work.risingEdgeRegister port map(d => AddressShufflerOut, clk => AddressWrite, enable => '1', q => address);
     
     CU: entity work.ControlUnit port map(instruction => instruction, waitsig => waitsig, clk => clk, previous_condition => PCIncrementMUXCondition,
-            regin => reginpick, opbpick => operandBpick, opcode => opsel, pcinc => pcinc, pcpick => pcpick, drpick => drpick, arpick => arpick,
-            pcdec => pcdec, gieselect => gieselect, const => const, size => size, regA => regApick, regB => regBpick, regWrite => regwritepick,
-            statusregwrite => regtostatusenable, statusregread => operandApick, writeenable => regwriteenable, statuswriteenable => statuswriteenable, 
-            conditionout => condition, interrupt => interrupt, GIE => statusregout(4), readfinal => reading, writefinal => writing, instructionwrite => instructionwrite,
-            counttest => instructionwriteout, instructiontest => PCtest);
+            regin => reginpick, opbpick => operandBpick, opcode => opsel, pcinc => pcinc, pcpick => pcpick, drpick => drpick, drenable => drenable,
+            arpick => arpick, pcdec => pcdec, gieselect => gieselect, const => const, size => size, regA => regApick, regB => regBpick, 
+            regWrite => regwritepick, statusregwrite => regtostatusenable, statusregread => operandApick, writeenable => regwriteenable,
+            statuswriteenable => statuswriteenable, conditionout => condition, interrupt => interrupt, GIE => statusregout(4), readfinal => reading,
+            writefinal => writing, instructionwrite => instructionwrite, instructiontest => PCtest, breq => breq, back => back);
     
     --PCtest(31 downto 3) <= "ZZZZZZZZZZZZZZZZZZZZZZZZZZZZZ";
     --PCtest(2 downto 0) <= pcpick;

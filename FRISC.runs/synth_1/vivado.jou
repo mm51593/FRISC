@@ -2,11 +2,11 @@
 # Vivado v2020.2 (64-bit)
 # SW Build 3064766 on Wed Nov 18 09:12:47 MST 2020
 # IP Build 3064653 on Wed Nov 18 14:17:31 MST 2020
-# Start of session at: Thu Jun 10 17:11:14 2021
-# Process ID: 38248
+# Start of session at: Fri Jun 11 23:36:39 2021
+# Process ID: 7641
 # Current directory: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1
-# Command line: vivado -log Complete.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Complete.tcl
-# Log file: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1/Complete.vds
+# Command line: vivado -log Complete2.vds -product Vivado -mode batch -messageDb vivado.pb -notrace -source Complete2.tcl
+# Log file: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1/Complete2.vds
 # Journal file: /home/extra/Xilinx/Vivado/2020.2/FRISC/FRISC.runs/synth_1/vivado.jou
 #-----------------------------------------------------------
-source Complete.tcl -notrace
+source Complete2.tcl -notrace

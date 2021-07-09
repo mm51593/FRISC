@@ -1,6 +1,6 @@
 Vivado Simulator 2020.2
 Copyright 1986-1999, 2001-2020 Xilinx, Inc. All Rights Reserved.
-Running: /home/extra/Xilinx/Vivado/2020.2/bin/unwrapped/lnx64.o/xelab -wto 8bc2488f94e34900a59283ad6faa47b7 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot Complete_tb_behav xil_defaultlib.Complete_tb -log elaborate.log 
+Running: /home/extra/Xilinx/Vivado/2020.2/bin/unwrapped/lnx64.o/xelab -wto 8bc2488f94e34900a59283ad6faa47b7 --incr --debug typical --relax --mt 8 -L xil_defaultlib -L secureip --snapshot Complete4_tb_behav xil_defaultlib.Complete4_tb -log elaborate.log 
 Using 8 slave threads.
 Starting static elaboration
 Completed static elaboration
@@ -22,7 +22,7 @@ Compiling architecture behavioral of entity xil_defaultlib.MUX4to1 [mux4to1_defa
 Compiling architecture behavioral of entity xil_defaultlib.circuitNAND2 [circuitnand2_default]
 Compiling architecture behavioral of entity xil_defaultlib.MUX2to1 [mux2to1_default]
 Compiling architecture behavioral of entity xil_defaultlib.MUX8to1 [mux8to1_default]
-Compiling architecture behavioral of entity xil_defaultlib.risingEdgeRegister [risingedgeregister_default]
+Compiling architecture behavioral of entity xil_defaultlib.flatEdgeRegister [flatedgeregister_default]
 Compiling architecture behavioral of entity xil_defaultlib.circuitAND4 [circuitand4_default]
 Compiling architecture behavioral of entity xil_defaultlib.Decoder3to8 [decoder3to8_default]
 Compiling architecture behavioral of entity xil_defaultlib.registry [registry_default]
@@ -44,13 +44,12 @@ Compiling architecture behavioral of entity xil_defaultlib.BarrelShifter [barrel
 Compiling architecture behavioral of entity xil_defaultlib.NZcalculator [nzcalculator_default]
 Compiling architecture behavioral of entity xil_defaultlib.ArithmeticLogicUnit [arithmeticlogicunit_default]
 Compiling architecture behavioral of entity xil_defaultlib.ALU_full [alu_full_default]
-Compiling architecture behavioral of entity xil_defaultlib.flatEdgeRegister [flatedgeregister_default]
 Compiling architecture behavioral of entity xil_defaultlib.Extender [extender_default]
 Compiling architecture behavioral of entity xil_defaultlib.ConditionTester [conditiontester_default]
 Compiling architecture behavioral of entity xil_defaultlib.Shuffler [shuffler_default]
 Compiling architecture behavioral of entity xil_defaultlib.ControlUnit [controlunit_default]
 Compiling architecture behavioral of entity xil_defaultlib.FRISC [frisc_default]
-Compiling architecture behavioral of entity xil_defaultlib.RAM [ram_default]
-Compiling architecture behavioral of entity xil_defaultlib.Complete [complete_default]
-Compiling architecture bench of entity xil_defaultlib.complete_tb
-Built simulation snapshot Complete_tb_behav
+Compiling architecture behavioral of entity xil_defaultlib.RAM4 [ram4_default]
+Compiling architecture behavioral of entity xil_defaultlib.Complete4 [complete4_default]
+Compiling architecture bench of entity xil_defaultlib.complete4_tb
+Built simulation snapshot Complete4_tb_behav
